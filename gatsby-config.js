@@ -4,7 +4,9 @@ module.exports = {
     author: `Bradley Morris`,
     description: `A blog about a software developer experimenting with modern web technologies`,
     siteUrl: `https://oldtimerza.github.io/`,
-    social: {},
+    social: {
+      twitter: ``,
+    },
   },
   plugins: [
     {
