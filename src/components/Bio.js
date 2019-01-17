@@ -31,12 +31,9 @@ function Bio() {
               }}
             />
             <p>
-              Written by <strong>{author}</strong>. A blog about experimenting with
-              modern web technologies.
+              Written by <strong>{author}</strong>. A software developer
+              exploring the magical arts of modern web technologies.
               {` `}
-              <a href={`https://twitter.com/${social.twitter}`}>
-                You should follow him on Twitter
-              </a>
             </p>
           </div>
         )
