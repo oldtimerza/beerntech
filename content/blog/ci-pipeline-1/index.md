@@ -153,3 +153,25 @@ Now we have our Circle CI connected to our Github repo to pull code changes and 
 last thing we need is a place to store and transfer our image into the droplet from.
 
 Luckily for us Docker provides this for us in the form of **DockerHub**.
+
+Head on over to [DockerHub](https://hub.docker.com/)
+
+Create an account and login.
+
+> Remember your credentials as this will be important in a bit.
+
+Once you've logged in click the **Create Repository** button in the top right.
+
+![Docker Hub](./docker-hub.png)
+
+Give your repository a name that you will remember as we will need it later, give it a description if you want.
+
+Then click **Create**.
+
+> Remember the name you gave the repository as we'll need it when configuring Circle CI to deploy our app.(Mine is oldtimer/blade-express as seen from the dashboard).
+
+![Docker dash](./docker-hub-dash.png)
+
+You now have everything you need to do the final part of this tutorial and that is to configure our project with a DockerFile and update our .circleci/config.yml to build, test and deploy everything automatically whenever we push code to our Github repo.
+
+Stay tuned for the next part of this tutorial: **Configuration**.
