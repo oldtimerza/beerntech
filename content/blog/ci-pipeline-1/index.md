@@ -1,5 +1,5 @@
 ---
-title: Simple CI pipeline - Part 1: Setup
+title: Simple CI pipeline - Part 1 - Setup
 date: '2019-01-19T22:40:32.169Z'
 ---
 
