@@ -93,7 +93,7 @@ Click on the little cog icon in the top right and it will take you to the follow
 
 ![circle-ci-key](./circle-ci-key.png)
 
-As you can see I've already added a key for DigitalOcean. You probable won't have anything there.
+As you can see I've already added a key for DigitalOcean. You probably won't have anything there.
 
 Just click **Add SSH Key** in the top right and a little dialog box will open with **Hostname** and **Private Key** boxes.
 
