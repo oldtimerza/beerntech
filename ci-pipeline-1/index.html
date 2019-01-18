@@ -1,0 +1,581 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/app.bddaef654c66ded1434d.css">@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-50d279861fb3cbfed809eae6ed8b9ac9.woff2) format("woff2"),url(/static/montserrat-latin-100-5e334eff013f12fbb8ed72c2a253f119.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-8c0705336558194799a8729840d7ed9d.woff2) format("woff2"),url(/static/montserrat-latin-100italic-03e19243272affe738654a157625ec26.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-4343d3d91a9446226e7a8bbb024111ad.woff2) format("woff2"),url(/static/montserrat-latin-200-f2022ecd65a0703ec3edcb7641709a75.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-116c4c4b14ef76b0555da09854512022.woff2) format("woff2"),url(/static/montserrat-latin-200italic-89614a6008fc5c60739012463d0ee7e6.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-d2ad295b60682a6537c358e06ea80c61.woff2) format("woff2"),url(/static/montserrat-latin-300-3a371ee0d175f5c2b15ce1d6b981dc4e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-f6b6bf2431003f8142e800f9df157989.woff2) format("woff2"),url(/static/montserrat-latin-300italic-16521668f5f238098329cdd7d27c391e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-240a84447b78da0920fcb07e378f2c5f.woff2) format("woff2"),url(/static/montserrat-latin-400-b20cc131034316b1c85d0498fb9ed5c5.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-86172bb829de6be08b92512096b6aca6.woff2) format("woff2"),url(/static/montserrat-latin-400italic-9405e78785a55cf0e4ea7669d4616ea9.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-fb8d6b71dbe8d9294be43082936f649e.woff2) format("woff2"),url(/static/montserrat-latin-500-50825d47af7ae47e055018eb689c6c99.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-c0a555a4f8e997385a3eebbd4da0b9ee.woff2) format("woff2"),url(/static/montserrat-latin-500italic-635de59c4be86285b1f70068c95b9816.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-d5615136a08cfee70deb4be1ee1651df.woff2) format("woff2"),url(/static/montserrat-latin-600-f300da4fb4fe00e23915f62b2c643681.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-10f29d139edacde92df63374c5672568.woff2) format("woff2"),url(/static/montserrat-latin-600italic-2bc37d86a4ba12ce526c4af904a9946e.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-7d77e1f03eefc452dab14d7f89080083.woff2) format("woff2"),url(/static/montserrat-latin-700-81826529772e52f0f14a4c73c2f2c7f1.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-1dd2b53f1567a29e0505de9b27c4352c.woff2) format("woff2"),url(/static/montserrat-latin-700italic-c162d257f5e9f9b108a96a604cfb2132.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-d4e7bf86bbd8e5f43ca73fa831218648.woff2) format("woff2"),url(/static/montserrat-latin-800-895aadbff357be35ac8dd107c7975ee7.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-fc0cbe442f7b3733c91e982e825c4daa.woff2) format("woff2"),url(/static/montserrat-latin-800italic-b3362875067300abedb7a8fb97903258.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-c8bdd772c0d1347720ff7e3fb72719f3.woff2) format("woff2"),url(/static/montserrat-latin-900-1b99ef78e627dd9bbd0ca4b5c0789547.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-cb72c1f90f66c124fb897a75bec64c78.woff2) format("woff2"),url(/static/montserrat-latin-900italic-b78bb9f8ecec6c5a924c873f1818095f.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-f015f1e9a46a3b9db4fd64564dacece4.woff2) format("woff2"),url(/static/merriweather-latin-300-92dfe81b725c342d31d962da975c07a6.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-7fd86b32accf2df4403d1d4fa3a81502.woff2) format("woff2"),url(/static/merriweather-latin-300italic-878b76f59d5ba58dd1652dc8d2a0f4f9.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-12dbf4c00ae43698f278b099e4b0ec9e.woff2) format("woff2"),url(/static/merriweather-latin-400-1fffad22b085a877995812dbf1d9ac08.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-1e0d3e8121d88969bfb153c8f174b758.woff2) format("woff2"),url(/static/merriweather-latin-400italic-de18d4c4e8e808a7248a185f866ff094.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-dc8fec81a125fc63856587e6683da73b.woff2) format("woff2"),url(/static/merriweather-latin-700-d7d2ed8e58f303392cc3fc00ba3a9186.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-b7b7e5da4d7be8c12bd5a6c809edc8fc.woff2) format("woff2"),url(/static/merriweather-latin-700italic-6210a5fc1c54ca85a5d82aa85d7a9b5c.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-43f870d543dd89fbeb66d417c0d97276.woff2) format("woff2"),url(/static/merriweather-latin-900-8f3806df74937c7b8b53f24ae1e725d1.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-168c1ab28ed0e4e7d654334def288bc1.woff2) format("woff2"),url(/static/merriweather-latin-900italic-ae7778f01871e35ee142ef207b313b34.woff) format("woff")}</style><meta name="generator" content="Gatsby 2.0.91"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><link rel="shortcut icon" href="/icons/icon-48x48.png"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><title data-react-helmet="true">Simple CI pipeline - Part 1 - Setup | Oldtimerza.js</title><meta data-react-helmet="true" name="description" content="Introduction One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as possible
+is to start…"/><meta data-react-helmet="true" property="og:title" content="Simple CI pipeline - Part 1 - Setup"/><meta data-react-helmet="true" property="og:description" content="Introduction One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as possible
+is to start…"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="Bradley Morris"/><meta data-react-helmet="true" name="twitter:title" content="Simple CI pipeline - Part 1 - Setup"/><meta data-react-helmet="true" name="twitter:description" content="Introduction One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as possible
+is to start…"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.9);font-family:'Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:0 1px 0 0 currentColor;color:#007acc;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}a.gatsby-resp-image-link{box-shadow:none;}</style><link as="script" rel="preload" href="/component---src-templates-blog-post-js-2088edded12f44306a2f.js"/><link as="script" rel="preload" href="/0-a467b0ce861a98d81424.js"/><link as="script" rel="preload" href="/app-1fede134c1ac3c7f3c7c.js"/><link as="script" rel="preload" href="/webpack-runtime-cad43e3b1534e655b0de.js"/><link as="fetch" rel="preload" href="/static/d/634/path---ci-pipeline-1-fc-8-e30-dKEJA8PSjvmZQ46OYX4LIPtE6DY.json" crossOrigin="use-credentials"/></head><body><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group"><div style="margin-left:auto;margin-right:auto;max-width:42rem;padding:2.625rem 1.3125rem"><h3 style="font-family:Montserrat, sans-serif;margin-top:0"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/">Oldtimerza.js</a></h3><h1>Simple CI pipeline - Part 1 - Setup</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.75rem">January 19, 2019</p><div><h2>Introduction</h2>
+<p>One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as possible
+is to start development with a <strong>Continuous Integration(CI)</strong> pipeline.</p>
+<p><strong>Continuous Integration</strong>,from here on referred to as <strong>CI</strong>, is the process of having an automated process compile, test and deploy the project whenever a code change is detected in the
+repository.</p>
+<p>For the purpose of this blog I will describe how to get a simple CI pipeline up and running for a node js based project.</p>
+<p>The technologies we’ll be using are the following:</p>
+<ul>
+<li><strong>Github</strong>, The popular free source control host and tooling.</li>
+<li><strong>CircleCI</strong>, A service that you can hook into your <strong>Github</strong> repo that will pull the latest code changes and run them through a configurable process.</li>
+<li><strong>Docker</strong>, Containerisation. This isn’t too important to know what it is, but it helps us with keeping our deployment environment predictable and stable.</li>
+<li><strong>DockerHub</strong>, A free store to host our <strong>Docker</strong> images to enable the transfer of our production code.</li>
+<li><strong>Digital Ocean</strong>, A service that hosts Virtual Private servers that we need to host our project in the cloud.</li>
+</ul>
+<h2>Step 1: Setup</h2>
+<p>What we need to setup:</p>
+<ul>
+<li>A github repo.</li>
+<li>Circle ci and connect to our Github repo.</li>
+<li>Setup a digital ocean droplet.</li>
+<li>A Circle ci config file (.circleci/config.yml).</li>
+<li>A docker image file to create our docker image for deployment.</li>
+</ul>
+<h3>Github repo</h3>
+<p>For the purpose of this tutorial I’ll be using the following repository I have for an existing project:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/45a8fa48aebf2fa66af1fd182be6a861/aac1f/github-repo.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 53.30396475770925%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABOElEQVQoz4WRTU8CMRCG+cMGBFkgi8A/82jizbMHD5IoAdltO51+Ttcpu2R1E3XyHvoxT2fe6Wi13i3X22W5LVab+fK+KHezRTmeFpPZYsyaFjeTu6xb1py3rThnVW5GzTUSEaJVJqKNKTWsJuXzSEQptWp+xihdg5OkBq0BNNRSClBoDWiLxgcfkk/k6PJOH33lGH1Vv7OMrZyrra2J1Ol0ftsfDx/V48vzw+vToHgPW+ePlZY6VMoJ8AIcWwAbMRA6OoDYy89B4z3sQzyr3JlUqhZSSJWblxBijIliJNR26Pk7XIPnhdao4OJeax9CN86U0Ji/YNHCiFJB5kF738GU/+J3OARSGNIV5rJorDE2XYz+A7MrbpszGW5RznbOM9bB5k/4rDx/BnNc2fL0Qx5Wd0vEjw7gL5hLZlD4WQgbAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Github repo"
+        title=""
+        src="/static/45a8fa48aebf2fa66af1fd182be6a861/fb8a0/github-repo.png"
+        srcset="/static/45a8fa48aebf2fa66af1fd182be6a861/1a291/github-repo.png 148w,
+/static/45a8fa48aebf2fa66af1fd182be6a861/2bc4a/github-repo.png 295w,
+/static/45a8fa48aebf2fa66af1fd182be6a861/fb8a0/github-repo.png 590w,
+/static/45a8fa48aebf2fa66af1fd182be6a861/526de/github-repo.png 885w,
+/static/45a8fa48aebf2fa66af1fd182be6a861/fa2eb/github-repo.png 1180w,
+/static/45a8fa48aebf2fa66af1fd182be6a861/08f6a/github-repo.png 1770w,
+/static/45a8fa48aebf2fa66af1fd182be6a861/aac1f/github-repo.png 1816w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Creating a Github account, if you don’t have one, and creating a repo should be pretty easy to setup.
+We’ll skip this setup stage.</p>
+<h3>Connect Circle CI to our repo</h3>
+<p>First follow the steps on this page <a href="https://circleci.com/docs/2.0/getting-started/">Circle ci getting start</a></p>
+<blockquote>
+<p>Be sure to create the .circleci/config.yml file and push it to your repo.</p>
+</blockquote>
+<p>Once your Github account is connected to your github repo we’ll change the newly created config.yml to get our circleci workflow to build, test and deploy the project to digital ocean.
+Next we’ll setup an SSH key that we’ll later use to connect to our Digital Ocean droplet for deployment.</p>
+<h3>Playing with PuTTy</h3>
+<p>I assume you are using a windows machine, this tutorial will focus on developing on a windows machine, we will use a niffty app called PuTTy to generate our SSH key.</p>
+<p>Download PuTTY from here:
+<a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">Putty</a></p>
+<p>When you have it installed go ahead and open it up.</p>
+<p>You should see the following:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/f100da4cb3484e3ae7bd35dbc48a97f7/f63ba/putty.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 478px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 97.28033472803345%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAIAAAAf7rriAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABoUlEQVQ4y+VUyU7DMBT0/38HJ24cEBLiBhISKSQtKVmckM1ZvCRu095KC+OaVlxYr4zkFzvO2OM3zyG3t5e87boWratZPQz69QfYbrfr9Zr0Umsw9CA6XhSFUqprO631brfbbDYvX4I0NYuiCPTBoDetN1F/B3xDpJCUJpyL5XK5+A3AJ3qhl+PvaB/IWi/+hP9LtsZ+6ytswTaHaLjGZxEEQcc5RvvqGD6rENUPXCohexNVjyERQoKcABRIktQ8y5Ida2ZfTBql8Jh1Z9ePJ+c3p1fOxR1NmSBSijAM4yh+CkILfz7Hipa8Wq3WB0ilGKun01kQRXXTSKmIkirLsrwo4jgOo6hi7JhCdCDKdV3P82azGU3o/f1kMnEmjjP1PCGEOXMKzWnKGGvbFq9sNmzpV1WVZXbxArOIZVnmeY73SDPhnLsPLsRgosjzum4geDhgHMfVHuhgyffhaGCsws6QBGl3joOkNU2Dv8Lc9yEGqcAdtSqqsowp9X0fszYd9koKHDU2oNCDu41zllW1MM71x5LAfUfMnp/hCPY2zin1BlfWGFYjmRn4AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="PuTTy"
+        title=""
+        src="/static/f100da4cb3484e3ae7bd35dbc48a97f7/f63ba/putty.png"
+        srcset="/static/f100da4cb3484e3ae7bd35dbc48a97f7/29db7/putty.png 148w,
+/static/f100da4cb3484e3ae7bd35dbc48a97f7/1cf1c/putty.png 295w,
+/static/f100da4cb3484e3ae7bd35dbc48a97f7/f63ba/putty.png 478w"
+        sizes="(max-width: 478px) 100vw, 478px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Make sure you have <strong>SSH-2 RSA</strong> selected on the bottom then go ahead and click <strong>Generate</strong>. Follow the instructions and you should see a bunch of
+gibberish pop up at the top.
+Like so:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/c6ff7bb5212d2b9fc01d579f5c71c1ae/f63ba/Putty-gen.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 478px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 98.74476987447699%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAC0ElEQVQ4y31TiW6bQBDl//+miXNVbeWoaXB8cx+7nBsMizFgIFGqNnbfghOpqtIB7Q7LzvXmjXR7/82PExolXpS4AYs3efvy2r782j///P+bFrXEwqDI87LY8nTjU1rwPM+yuqqOx+PhcDh+LIfX31KWZUEY1nVdluVuh6XabrdFUdT7fX2Sk1JV9V+y30tpupnNFpZlE0I0XSeUmqblOI5t26ZpWLZlGEaa8aZpevvqzVG12+0kzvnd97vZdE4JhY1uGDB2XdfEZtme5/W6RYiLPzhxXeI4OCNJkkg8y27H4/PR6Pr65urq8uz8YjS6GI/HF6PLT2dni+WKMZalGRKEcJ5Dh0BP01TKc75cLuez+Xy+6JWFLE/kyeRhOpVl+WE6i+MYSAxAQIYd+cKFlHNOCLVtJ4qituuiKFRVTVGUxXyhqaqiqOv1ar3GgaLrOr4VVTV0I4pinnNEzl0iqsJ327ZxzFAtfNmmlb3h1EMrBDhhHQ6Ri4is69pquQYeyAcY9lcbIXDWDmvbvB+c1AaXRWSAaJkWsgOMsN73Hd5/IO+JCGNE93wfAeHs9L9Xyg9kuDLoos+AgVIvDALfB9nEzthj/Y8gQMyYpoJKBhRRM6IHoXhcgA4fnufYDro4ZIh0uk4U2nVdWRYJiw1YayqLI/RYQuNALHAT7EHtMAcrRHp9NDAhgGc/QLcDtpFX5lhefv0xlxXLY6moGWHRZNoLSIc4aIkYkapCEWs0erkydN0Okpv79ZeJ+hnrg+7EXNRs9qQVt+saVUAZwBtW9KZtTz3quicBpzhvMBwS5hfExDudzcAhkAQ2qBzQAYBtseuzqDaY9iBAamgthqrsE5N2RQGEMH2apsVRGMGGEAwkuJskwLwSNGkazDrI7HvUdZ1nyNMTfEoh25iOZ1PfpoFFfM1ydZvQ8PExzVmah4/p8EZJJj5ZarkekINVECd/AEBdLfvvUg+3AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="PuTTy-gen"
+        title=""
+        src="/static/c6ff7bb5212d2b9fc01d579f5c71c1ae/f63ba/Putty-gen.png"
+        srcset="/static/c6ff7bb5212d2b9fc01d579f5c71c1ae/29db7/Putty-gen.png 148w,
+/static/c6ff7bb5212d2b9fc01d579f5c71c1ae/1cf1c/Putty-gen.png 295w,
+/static/c6ff7bb5212d2b9fc01d579f5c71c1ae/f63ba/Putty-gen.png 478w"
+        sizes="(max-width: 478px) 100vw, 478px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Now <strong>Save public key</strong> and <strong>Save private key</strong> some where on your PC that you’ll remember.</p>
+<blockquote>
+<p>Word of advice, give them distinguishing and descriptive names. It helps to avoid forgetting later.</p>
+</blockquote>
+<p>Now locate your private key file and open it in a text editor(I use <a href="https://www.sublimetext.com/">Sublime Text</a>).
+I’ve generated a test key to show you.
+Copy the highlighted part in the image below:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/44da0a48c6ac791eba0e35be754c39ba/32413/key-copy.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 583px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 74.27101200686106%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAA7DAAAOwwHHb6hkAAACbElEQVQoz2WTWXPaQAyA808KDsbmahLwsTZQE9t7X7YJgSbNtFNa0j70/79WC+m0M53R7GglfdKutHsVjq5RthASY/yhxsV9uULZPElv5/NpEHrDoP+/gP0iV6PxdZYnbSuLTQ7kchUvV0kU34BvNPEh9XjiX2Qy8SF4NHbGv3CKXGUha8ZKEMorxkttGBcVJsXZhaUkQtQUvKyczoJLfYAHKZorwxirpCKM15xXEKE1BQZS2EbIMwzebqvBOJ36bzCcJ84ipghXRCjKFMa8wvQetkzWmJcMKmtKeL3eZCuQAgXjwSA4H/v9LNini1+CnOr7Y1l8LfInFD1n8ROKX5bJyzKF7cd08SlLutupmYYgcujFgTcAOJ0Fzyje7myjiFWkNWzXqW0rDw/WOgu1mjaa7jp92DX7B601WU6H2Pc8gNEs3OeJaAQ0vO2Usty2crszD4+tBb0RTae0FcpQ0OHOsuFQrwJ45CqHj2mkOtV1qm2VsUwpYgxvOpcLoq11CnQemgcFhCbIwX0HIwcvZCu1IkpTNydWQhHGK8JKGM8lF6TebjWkpgq/wec7h4csphChCIzHOGEc5qyBoYLXxjDICwpnlXKdJ9m/8DZdVJZhURFDicK8FdRQZljFq1riDd3AKhpONGGWlQpHs/Dt2ItZ8Dm++6bokVZHVr0q+l2QI61fJf1p5Q/NTpycBPmCi8M6269Ql0U69MvhudspusF5xPOYZnEZ3fA8EstErRFfJnKVmk0u1wgsLIvyyfBu8G7h92DIY/gzAMNbCycDL+h5w54X9N067PXPq1P8sx44F7wKf3QNMvjzq34Dwm7YSBY1hUkAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="private-key"
+        title=""
+        src="/static/44da0a48c6ac791eba0e35be754c39ba/32413/key-copy.png"
+        srcset="/static/44da0a48c6ac791eba0e35be754c39ba/a734f/key-copy.png 148w,
+/static/44da0a48c6ac791eba0e35be754c39ba/5c6ba/key-copy.png 295w,
+/static/44da0a48c6ac791eba0e35be754c39ba/32413/key-copy.png 583w"
+        sizes="(max-width: 583px) 100vw, 583px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>This is our <strong>private key</strong>. It should not be shared with anyone. We will give it to Circle CI so that it can have access to our droplet.
+The top part is our public key and we will be giving that to Digital Ocean so it can verify if someone SSHing into our droplet has the rights to do so.</p>
+<h3>Give Circle CI the private key</h3>
+<p>The next step is to copy the private key from the previous step and paste it into our SSH settings on Circle CI.</p>
+<p>Open up Circle CI again and go to your dashboard, from here click Settings -> Projects and you should see your project there like so:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/43f55304be26e2d78b1b1f749fbf095d/97ce6/circle-ci-project-setting.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 52.7732015376167%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAp0lEQVQoz9XQsQ6CMBAG4Aumb9SB8Ey4WxjAkjRh4g11N4oIQgstrQfG6Ca4+SWXtJf86V2BZ1kcx0mS7GfpC3byPBdC4CH9wDkXMwyCm1gsY0zf924NkIMeZ+eyPJXXurm3X3VdW90uhyOoQVtrxxFLu5WgqmullJSyKIptGDLGdsuwKAIz7eu01pRSAPA8D5Z7DoC/FQQBXgkhm8XeYd/3f3/5r8IP+D0pv5m/rG4AAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circle-ci-settings"
+        title=""
+        src="/static/43f55304be26e2d78b1b1f749fbf095d/fb8a0/circle-ci-project-setting.png"
+        srcset="/static/43f55304be26e2d78b1b1f749fbf095d/1a291/circle-ci-project-setting.png 148w,
+/static/43f55304be26e2d78b1b1f749fbf095d/2bc4a/circle-ci-project-setting.png 295w,
+/static/43f55304be26e2d78b1b1f749fbf095d/fb8a0/circle-ci-project-setting.png 590w,
+/static/43f55304be26e2d78b1b1f749fbf095d/526de/circle-ci-project-setting.png 885w,
+/static/43f55304be26e2d78b1b1f749fbf095d/fa2eb/circle-ci-project-setting.png 1180w,
+/static/43f55304be26e2d78b1b1f749fbf095d/08f6a/circle-ci-project-setting.png 1770w,
+/static/43f55304be26e2d78b1b1f749fbf095d/97ce6/circle-ci-project-setting.png 1821w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Click on the little cog icon in the top right and it will take you to the following page:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/1e2f09f8a596b7f62fb937e95fa6e6eb/1bc0f/circle-ci-key.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 49.536784741144416%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABDUlEQVQoz5WQy06EMBiF+7QanwGIEHAU6obAvBABN0JYsSTuXBiBlFLo0Mv4K2GcMSFxvkXTtOec/4Lubm9c1zUMwzRNy7Icx7FX4I4xti+5t+3d4871PMd7QHG8P/4ghJimSSl1PENrfdxEoyiK6TiCiJC+adqu69q2pZSeJBAHoYcVzrmU4uP98+X1DUXxnvBZKM0YI4QsOjDneV6WZVEUdV0LIf+0IKRq+gmFYUgnDp+MDX1PIBj6B3OaplmWJUlSVdU8z/wS6ODAR4Tx87dZ6WEYwAP1l3MZGICsYQPkBwGbwftrXqAr8M42QL7vQ2Uh5SJl14Ce/KCDHc2iJ+RqcxDgkcO6xWna//MFVUEX7JDzGLYAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circle-ci-key"
+        title=""
+        src="/static/1e2f09f8a596b7f62fb937e95fa6e6eb/fb8a0/circle-ci-key.png"
+        srcset="/static/1e2f09f8a596b7f62fb937e95fa6e6eb/1a291/circle-ci-key.png 148w,
+/static/1e2f09f8a596b7f62fb937e95fa6e6eb/2bc4a/circle-ci-key.png 295w,
+/static/1e2f09f8a596b7f62fb937e95fa6e6eb/fb8a0/circle-ci-key.png 590w,
+/static/1e2f09f8a596b7f62fb937e95fa6e6eb/526de/circle-ci-key.png 885w,
+/static/1e2f09f8a596b7f62fb937e95fa6e6eb/fa2eb/circle-ci-key.png 1180w,
+/static/1e2f09f8a596b7f62fb937e95fa6e6eb/08f6a/circle-ci-key.png 1770w,
+/static/1e2f09f8a596b7f62fb937e95fa6e6eb/1bc0f/circle-ci-key.png 1835w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>As you can see I’ve already added a key for DigitalOcean. You probable won’t have anything there.</p>
+<p>Just click <strong>Add SSH Key</strong> in the top right and a little dialog box will open with <strong>Hostname</strong> and <strong>Private Key</strong> boxes.</p>
+<p>Enter <strong>DigitalOcean</strong> as the <em>Hostname</em>.
+Then paste your private key you made earlier into the <strong>Private Key</strong> part.</p>
+<p>Finally click <strong>Add SSH Key</strong> to close the dialog and save the key.</p>
+<p>Next we need to give Digital Ocean our public key.</p>
+<h3>Give Digital Ocean the public key</h3>
+<p>Head on over to Digital Ocean and create an account.</p>
+<p>To do this go to the following page:
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/90e31f839e9197ca79c08d3b0b1c4343/9446b/digital-ocean-dash.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 52.818828680897646%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABgklEQVQoz31RS0sCURQeitq0bKFI7fsF/YSgrNat+wlCwvjCH+EPcCJGBxKih0KoLUSQHtCqXSSuFEKZmfuce2/TmRkzwezjcu85nMf33XO0ta3jeuvJ931Kqe9Lfwm+wpsofvHZmyh6c3XdvX3TtndPm51XCAyxunxnyHVc10UIeZ632MLj3CNUSRW5mhZPNtrPYI0J7/QdRghIEEIEbAuQUkJIKRWJ0dZ3ThrtF7DlT78Ig8EA+KMWy/6irSSO6q2AeTgalY1zs2JVKlXTNEulUrlsVKuBO4NlWYZh9Ho9yAd+bTVxWG8+gvPR76fTZ5mMnstlAcVisVDIR3Y2m9F1HZ58Pp9KpWq12rRYiyUbD7+yl0r8U/ZmbK951wGLe8LFBGHCInBBKIPDGEyQjSfBCggJotOBQfFGfP++0Q2L5cQmYxtjKkJXORjqRTTgiRP0AMzPD2QfRLIZlw6GJI+yoDHcDuI2YkJIyEeEg5gZ51xxuCqgQsSzXexi+s965vENFapACS7y8A0AAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Digital Ocean Dashboard"
+        title=""
+        src="/static/90e31f839e9197ca79c08d3b0b1c4343/fb8a0/digital-ocean-dash.png"
+        srcset="/static/90e31f839e9197ca79c08d3b0b1c4343/1a291/digital-ocean-dash.png 148w,
+/static/90e31f839e9197ca79c08d3b0b1c4343/2bc4a/digital-ocean-dash.png 295w,
+/static/90e31f839e9197ca79c08d3b0b1c4343/fb8a0/digital-ocean-dash.png 590w,
+/static/90e31f839e9197ca79c08d3b0b1c4343/526de/digital-ocean-dash.png 885w,
+/static/90e31f839e9197ca79c08d3b0b1c4343/fa2eb/digital-ocean-dash.png 1180w,
+/static/90e31f839e9197ca79c08d3b0b1c4343/08f6a/digital-ocean-dash.png 1770w,
+/static/90e31f839e9197ca79c08d3b0b1c4343/9446b/digital-ocean-dash.png 1827w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>You now need to click on the <strong>Securtiy</strong> option on the sidebar near the bottom.</p>
+<p>This will take you to the following screen:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/02c0de28d5ebdf90fab87e7f05ea14ab/98ef2/digital-ocean-security.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 49.14506343077772%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABc0lEQVQoz2WRy0rDQBSGgxsrgerGKi68QYtF6Rv4AmJR1Fasuvf5usiiq276AGIvVpGoFXpZBJsmc5+JJ5lRG/0ZAjOZ75zz/2NlC1V75+y+8xJFESGEcy6lVEpF/6Si+LAdfDhB96X/XC6XrUyxtlK8bPde4Qdgs9nM9/3xeDwYDGA7DwslqeIy+q1r2fkLu1DVsBASISSEcF232WxSSudhJsWUI48FSMTnMJ2VK91kS7cPPVd3JgSHCOmejLE/RrBkgSQwgumc279a2jxpP8adKWNBEMJVaA5MynCimMfY96cGXj2o2bvnP3AYxrBWq9Wq1+uNRsNxnMlkEvuSgguJialrLWwcL26dahgAzpn4zsnzvOFwOBqN4Euo8UkpATsG3ju8Wy9dd5/edWBT34fMoARo/sESH4ww5X2GGGEDZ/OV5UKl039LppKUxbdoIkJgYUIFogpTiYjiIvXylrV2lNk2YwMAYYBtlVKkl1Sp5EBfo+oRwrfp9DsAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Digital Ocean security"
+        title=""
+        src="/static/02c0de28d5ebdf90fab87e7f05ea14ab/fb8a0/digital-ocean-security.png"
+        srcset="/static/02c0de28d5ebdf90fab87e7f05ea14ab/1a291/digital-ocean-security.png 148w,
+/static/02c0de28d5ebdf90fab87e7f05ea14ab/2bc4a/digital-ocean-security.png 295w,
+/static/02c0de28d5ebdf90fab87e7f05ea14ab/fb8a0/digital-ocean-security.png 590w,
+/static/02c0de28d5ebdf90fab87e7f05ea14ab/526de/digital-ocean-security.png 885w,
+/static/02c0de28d5ebdf90fab87e7f05ea14ab/fa2eb/digital-ocean-security.png 1180w,
+/static/02c0de28d5ebdf90fab87e7f05ea14ab/08f6a/digital-ocean-security.png 1770w,
+/static/02c0de28d5ebdf90fab87e7f05ea14ab/98ef2/digital-ocean-security.png 1813w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Click on the <strong>Add SSH Key</strong> button on the right.</p>
+<p>Copy your public key from the PuTTy:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/4e233b5ba4735e04a422819b86aa14ed/f63ba/putty-public.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 478px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 96.65271966527197%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAIAAAAf7rriAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAC2UlEQVQ4y41Ta3OTUBDl//8DPzja+kEdR+3LZ2ptah4kIRQIAS5cCARICAmER0KbRKuHpM04o854gJ2dy+7d3bO7TLNZKYq8KG4KYLlc3a5+/gfu7u7W6zUTR0m+RZam0+kUSpIk+WIBix//xndgs2HGkzGhNIqiMAwnk0kpg2ASTHAR9NlsBiWK4vnviON5kszTlAkJ4R49Vl8fWWfv9DelNI5O6PEpJHl7TE9OyZu306/VtNGc1xrzWj2pN5ImG51fxIQwU67bPj6tsW2tr/R7PZ7jJEFUZFnkr0VBsKhpGkZf7muqikNNUfDqpkXZ1rTJMrPuNVc5/1SrX9TqlWr18+Vl5fKqyrKVy1KXVC1AjkURLxbz5TK9KeI8n69XITVn7Q4zFaX+kwP+xSvh+Uvt6ER+9bp18Kx1cAjJPj1sHxxaHz6Ovnz1v1xAeucXUMbVb8HZ+6jLM0EQ6KKocJwlK6s49ggR6g2pyfJXNZXjSZdXOU5ud9Qur/HQu7DUr8WxaYJPBgzTgaUZxmDoZcvFOAztoTv0fdvxssXidrO5Wa8f3tVez4vlLIoY9KffB1OyoqhhOEVv4jhGq9M0jf+J+a61DD5VUTWiyz1ZNyiqwHWzLaK/YXeO5iPl0lnXdcTEbCEaRmD3e/YH9mMDQInKtMMJ2kiIbhhGKSm1LMtxhmmGeU2TB0CHtWWanU5HEARn6OAuBp9h6IZOUTP8NU0DBeMg2GWRZWDtHgjoum6v14OB5/n3NeM+27ZLT0JwJSLsow0Gg5JOqUcI8XxfEqXrLRADlZZsmxSP6TiO63kgDG7b4S+XwfPQeAJT0zTBECSlFGEGtl3WjCPUIIqi63pw9n1/53wfPMvybc5Y2XJV83yx298sw+1lzZKEFRBaLRakjUYjnKgq6qeQ2xLKLfRcV9cNRVFG4/E+tbJmbQuYDgY22qYo/W1WMRjap7AbDscuDZDOrqO/AP7X8AYldIeUAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Putty public"
+        title=""
+        src="/static/4e233b5ba4735e04a422819b86aa14ed/f63ba/putty-public.png"
+        srcset="/static/4e233b5ba4735e04a422819b86aa14ed/29db7/putty-public.png 148w,
+/static/4e233b5ba4735e04a422819b86aa14ed/1cf1c/putty-public.png 295w,
+/static/4e233b5ba4735e04a422819b86aa14ed/f63ba/putty-public.png 478w"
+        sizes="(max-width: 478px) 100vw, 478px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Copy all the text in the highlighted part of PuTTy.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/ecd14e5f34ac4872f35980cd547a3418/3d4da/digital-ocean-paste.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 88.41059602649007%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAIAAADUsmlHAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABYklEQVQ4y52TDW+CMBCG+f8/bVmyLCabQUERx2fpF9cC/YAV0GxM53RP3hTS4+2Ru6unlBou6O/AWusZY5qmoZQCAEIV47wGcLHhJl9mAZAmCSMYlQVGKEsSo/X4hbXf/2S40GjutMZ1zVtdQYtFx5qmpLTijEk5iwpxegFwazsd7fC0MbpEdO3jMCu3Tml3TEySmo90XK8qzWyaDm3rac75y1uxjfE2ImGMgwPEuTgWvyrOZVbhVSCDyNOE1Jsds6ZRSigltf6zVm5pKyqCw2gW/t6ed0/hG5qqqBCRS/N8wh+J5xyqomfzJlpkfsCMXebdw2ZExDbyDED9vAJ/D+uwfg/ukr9nT69teBj7bLuOF2XLeC+lvU8dyN5YT0+9ASmVMcPdGFf4ccKceerBPOs/6CddpZ9nW0pJCGFL3D0riiLPc4QQu8BF3V0eM7uH8zdL3A5MCCGaC1zUZR3Nw3/5BO5FEt2MnAjPAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Digital ocean public key"
+        title=""
+        src="/static/ecd14e5f34ac4872f35980cd547a3418/fb8a0/digital-ocean-paste.png"
+        srcset="/static/ecd14e5f34ac4872f35980cd547a3418/1a291/digital-ocean-paste.png 148w,
+/static/ecd14e5f34ac4872f35980cd547a3418/2bc4a/digital-ocean-paste.png 295w,
+/static/ecd14e5f34ac4872f35980cd547a3418/fb8a0/digital-ocean-paste.png 590w,
+/static/ecd14e5f34ac4872f35980cd547a3418/3d4da/digital-ocean-paste.png 604w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Paste the key in the highlighted box then give your key a descriptive <strong>Name</strong> and click <strong>Add SSH key</strong>.</p>
+<p>Awesome! We are now done with setting up our DigitalOcean to talk with Circle CI via SSH when we deploy later.</p>
+<h3>Create a Digital Ocean droplet</h3>
+<p>Once you’re in Digital Ocean create a Droplet(the smallest $5 one should be fine for the purposes of this tutorial).</p>
+<blockquote>
+<p>I made my Digital Ocean droplet with an Ubuntu distribution.</p>
+</blockquote>
+<p>Before you click <strong>Create</strong> at the bottom, first make sure you’ve set your droplet to use your added public SSH key from earlier.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/ff64d6399ef5c426bee3194dfca3bdd9/cfdee/DO-key-set.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 52.921900600764616%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABb0lEQVQoz4VSy0oDMRSN3egf+Ni68F+sblz5NYJUwW3XBQv2D6xTFz6Wgijozp0bnRHaGcd5ZG5yk5t4O6NSQerhEgg3555zkojWavvs4tZ7X4HCqvSImmxpwP+Gq1dJ+mR8A972j/uDwUAsre+Mru64YclZg46sJVKo/VxQDSFWt0ZX97xHY4BRgVaKjHU15o8Qixu7o+sp2VgCpSoApbWxhsgZY+bzxcLaVmNbZ3kWReUkxiy3sqK8YHP/KLfWtoPLmhwn78/PMB5jksIko0n8P1msbDaZlVJpkiSsrMCT06BKWWqt2Xdj3n3jD7Kxlo/yCI2ojOfseZ4V5ReklNzlWyCys+R2k5nJP+DhudRpVjjvHh4fu91ur9eL45hlEZG+4wix/KWsNcq8MAqdIX70EowsKqsRyuojSbP3DwTFXS6yM+SgVg5VehAG+6/Dab0MO+GwEwVH0flBFBy+nXPxthOe7b2ePsHb9J849wnSiVN1kih6QwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Digital Ocean key set"
+        title=""
+        src="/static/ff64d6399ef5c426bee3194dfca3bdd9/fb8a0/DO-key-set.png"
+        srcset="/static/ff64d6399ef5c426bee3194dfca3bdd9/1a291/DO-key-set.png 148w,
+/static/ff64d6399ef5c426bee3194dfca3bdd9/2bc4a/DO-key-set.png 295w,
+/static/ff64d6399ef5c426bee3194dfca3bdd9/fb8a0/DO-key-set.png 590w,
+/static/ff64d6399ef5c426bee3194dfca3bdd9/526de/DO-key-set.png 885w,
+/static/ff64d6399ef5c426bee3194dfca3bdd9/fa2eb/DO-key-set.png 1180w,
+/static/ff64d6399ef5c426bee3194dfca3bdd9/08f6a/DO-key-set.png 1770w,
+/static/ff64d6399ef5c426bee3194dfca3bdd9/cfdee/DO-key-set.png 1831w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Select your key from the list of available keys there.</p>
+<p>Great! Now we’ve got a running droplet that can talk to Circle CI via SSH!</p>
+<p>The final stage of setup is to create a <strong>DockerHub</strong> account so that we have somewhere to push our Docker image to larer.</p>
+<h3>Final step of setup: the DockerHub</h3>
+<p>Now we have our Circle CI connected to our Github repo to pull code changes and a Digital Ocean droplet to host our Docker image on, the
+last thing we need is a place to store and transfer our image into the droplet from.</p>
+<p>Luckily for us Docker provides this for us in the form of <strong>DockerHub</strong>.</p>
+<p>Head on over to <a href="https://hub.docker.com/">DockerHub</a></p>
+<p>Create an account and login.</p>
+<blockquote>
+<p>Remember your credentials as this will be important in a bit.</p>
+</blockquote>
+<p>Once you’ve logged in click the <strong>Create Repository</strong> button in the top right.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/d2187ea897fd739ecc45761baf666eaf/268f9/docker-hub.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 46.3441451346894%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAIAAAC9o5sfAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAA9ElEQVQoz41QTU/DMAztb2aTKEK7DAkJcR3iCCd+AEe6AeP3rB+J67hpYwc3BbYdgD1ZL1bsp2c7m69BY7aGi1dYbu2sMNOPRr6By3dYbFEj35h5Ya4/zOLNnhVfDVn8hgh7Qgl9PEZHzrVACA6BiA5LmUicglm6zgfWlxOLsnY8Pb+c39wtVw/57f3V6rE2rX6OZYl7Zw6KYUzkyLlFrBvTWKgbq6yqvfNP5gcuK62C2nvvEZ3yZP4bDneOjqgfkjmPk0vCSWIdWm1Vrxg9Q/B9r3yamKOxsKuqXVnqkrZ1SH5IV/hfrKM66gAdpz15Ouif+ATVq/4s6NbMCAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Docker Hub"
+        title=""
+        src="/static/d2187ea897fd739ecc45761baf666eaf/fb8a0/docker-hub.png"
+        srcset="/static/d2187ea897fd739ecc45761baf666eaf/1a291/docker-hub.png 148w,
+/static/d2187ea897fd739ecc45761baf666eaf/2bc4a/docker-hub.png 295w,
+/static/d2187ea897fd739ecc45761baf666eaf/fb8a0/docker-hub.png 590w,
+/static/d2187ea897fd739ecc45761baf666eaf/526de/docker-hub.png 885w,
+/static/d2187ea897fd739ecc45761baf666eaf/fa2eb/docker-hub.png 1180w,
+/static/d2187ea897fd739ecc45761baf666eaf/08f6a/docker-hub.png 1770w,
+/static/d2187ea897fd739ecc45761baf666eaf/268f9/docker-hub.png 1819w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Give your repository a name that you will remember as we will need it later, give it a description if you want.</p>
+<p>Then click <strong>Create</strong>.</p>
+<blockquote>
+<p>Remember the name you gave the repository as we’ll need it when configuring Circle CI to deploy our app.(Mine is oldtimer/blade-express as seen from the dashboard).</p>
+</blockquote>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/07f7a0fffc5d5a07021d19dfad7f7534/67a86/docker-hub-dash.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 52.800435019032086%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABS0lEQVQoz6XNyU4CQRAG4CZoiD6BgqDgAi5oNF4Zo+zqQ7gLxJiA8ZkYvIjxFTyZeJXAwYsXoxd2umfpspoeRjRejJUvnUrVXzNkKqN6Mqovqy5dqjO5kjdbChbKKFQoh6+lu+Wr2+lsceGiuJkvYhJPkC93Q6otsNSh2hRNpQ7Pdag0oNYUxLABTx9w/wIPb1BrD/JNIACmxHUKhiZ6roPJwGAAhpiLLW8x8/G1W32ndh4Rjps+Tdcp1XqUmSbnHChj7R6jTENM08TI+hbY8M9fxfsle4NDi4mMHcW7wdKqb8d/rf8dd7pUand68h1mb39FQtFDtBg72tjPrCSO1/fOV1On4eTJWvoMm+DOgQxYsaEeETIZQQ634vRHiVtxeLeJZwthI/oJ3CoDkZ+cgbg0FkyPh3bxHZ1NiIk/hkYCcZtrLumaT9l59AkVR9K/gvaUFAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Docker dash"
+        title=""
+        src="/static/07f7a0fffc5d5a07021d19dfad7f7534/fb8a0/docker-hub-dash.png"
+        srcset="/static/07f7a0fffc5d5a07021d19dfad7f7534/1a291/docker-hub-dash.png 148w,
+/static/07f7a0fffc5d5a07021d19dfad7f7534/2bc4a/docker-hub-dash.png 295w,
+/static/07f7a0fffc5d5a07021d19dfad7f7534/fb8a0/docker-hub-dash.png 590w,
+/static/07f7a0fffc5d5a07021d19dfad7f7534/526de/docker-hub-dash.png 885w,
+/static/07f7a0fffc5d5a07021d19dfad7f7534/fa2eb/docker-hub-dash.png 1180w,
+/static/07f7a0fffc5d5a07021d19dfad7f7534/08f6a/docker-hub-dash.png 1770w,
+/static/07f7a0fffc5d5a07021d19dfad7f7534/67a86/docker-hub-dash.png 1839w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>You now have everything you need to do the final part of this tutorial and that is to configure our project with a DockerFile and update our .circleci/config.yml to build, test and deploy everything automatically whenever we push code to our Github repo.</p>
+<p>Stay tuned for the next part of this tutorial: <strong>Configuration</strong>.</p></div><hr style="margin-bottom:1.75rem"/><div style="display:flex;margin-bottom:4.375rem"><div class=" gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px;margin-right:0.875rem;margin-bottom:0;min-width:50px;border-radius:100%"><img src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAUDBP/EABUBAQEAAAAAAAAAAAAAAAAAAAIB/9oADAMBAAIQAxAAAAHl6cqpUxoJl2hWUGP/xAAcEAACAgMBAQAAAAAAAAAAAAABAgADBBESISL/2gAIAQEAAQUCx6hYrU8TmYvg+dNYoPRSykloSd//xAAWEQADAAAAAAAAAAAAAAAAAAAAEBH/2gAIAQMBAT8BdP/EABYRAAMAAAAAAAAAAAAAAAAAAAAQEf/aAAgBAgEBPwFw/8QAGxAAAQQDAAAAAAAAAAAAAAAAAAECITEQQYH/2gAIAQEABj8CsjFnSVIHOXQp/8QAGxAAAwADAQEAAAAAAAAAAAAAAAERITFBUXH/2gAIAQEAAT8hqGyXgta9XRmFN9aFGK+CXgyBrwuGtcISl6f/2gAMAwEAAgADAAAAEOPgwv/EABgRAQEAAwAAAAAAAAAAAAAAAAARASFR/9oACAEDAQE/EJpGFdf/xAAYEQADAQEAAAAAAAAAAAAAAAAAARExUf/aAAgBAgEBPxB6VjI4f//EABsQAQEBAQEAAwAAAAAAAAAAAAERACExQWGB/9oACAEBAAE/EAplxARfvASM5F8184ha4jzz80OUBY7fc9AnZLMIGU0fE3iwDeHHuqaVrv/Z" alt="Bradley Morris" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition:opacity 0.5s;transition-delay:0.25s;border-radius:50%"/><noscript><picture><source srcSet="/static/41ebf602913bbad75cc6f4357872ad71/d2d31/profile-pic.jpg 1x,
+/static/41ebf602913bbad75cc6f4357872ad71/0b804/profile-pic.jpg 1.5x,
+/static/41ebf602913bbad75cc6f4357872ad71/753c3/profile-pic.jpg 2x,
+/static/41ebf602913bbad75cc6f4357872ad71/31ca8/profile-pic.jpg 3x" /><img width="50" height="50" src="/static/41ebf602913bbad75cc6f4357872ad71/d2d31/profile-pic.jpg" alt="Bradley Morris" style="position:absolute;top:0;left:0;transition:opacity 0.5s;transition-delay:0.5s;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div><p>Written by <strong>Bradley Morris</strong>. A software developer exploring the magical arts of modern web technologies.<!-- --> </p></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li></li><li></li></ul><footer>© <!-- -->2019<!-- -->, Built with<!-- --> <a href="https://www.gatsbyjs.org">Gatsby</a></footer></div></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'undefined', 'auto', {});
+      
+      
+      
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"ci-pipeline-1-fc8","path":"/ci-pipeline-1/"};window.dataPath="634/path---ci-pipeline-1-fc-8-e30-dKEJA8PSjvmZQ46OYX4LIPtE6DY";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app.bddaef654c66ded1434d.css","/app-1fede134c1ac3c7f3c7c.js"],"component---node-modules-gatsby-plugin-offline-app-shell-js":["/component---node-modules-gatsby-plugin-offline-app-shell-js-3c68924c38ad813971b9.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-2088edded12f44306a2f.js"],"component---src-pages-404-js":["/component---src-pages-404-js-aec14ae7e5c71e7da858.js"],"component---src-pages-index-js":["/component---src-pages-index-js-9145cfcdc7bcdf8b01d4.js"],"pages-manifest":["/pages-manifest-197d8e12466872ba683a.js"]};/*]]>*/</script><script src="/webpack-runtime-cad43e3b1534e655b0de.js" async=""></script><script src="/app-1fede134c1ac3c7f3c7c.js" async=""></script><script src="/0-a467b0ce861a98d81424.js" async=""></script><script src="/component---src-templates-blog-post-js-2088edded12f44306a2f.js" async=""></script></body></html>
