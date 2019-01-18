@@ -1,5 +1,5 @@
 ---
-title: Simple CI pipeline
+title: Simple CI pipeline - Part 1: Setup
 date: '2019-01-19T22:40:32.169Z'
 ---
 
@@ -104,23 +104,13 @@ Finally click **Add SSH Key** to close the dialog and save the key.
 
 Next we need to give Digital Ocean our public key.
 
-### Create a Digital Ocean droplet
-
-Head on over to Digital Ocean and create an account.
-Once you've logged in create a Droplet(the smallest \$5 one should be fine for the purposes of this tutorial).
-
-> I made my Digital Ocean droplet with an Ubuntu distribution.
-
-When you've created your droplet there is one more thing we need to do with it before we are done with Digital Ocean for now.
-
 ### Give Digital Ocean the public key
 
-We need to create and get the SSH details to later login and deploy our docker image.
+Head on over to Digital Ocean and create an account.
 
 To do this go to the following page:
 ![Digital Ocean Dashboard](./digital-ocean-dash.png)
 
-When you are on your dashboard you'll see your droplet there(mine is called **blade-express-docker-1**)
 You now need to click on the **Securtiy** option on the sidebar near the bottom.
 
 This will take you to the following screen:
@@ -128,4 +118,38 @@ This will take you to the following screen:
 ![Digital Ocean security](./digital-ocean-security.png)
 
 Click on the **Add SSH Key** button on the right.
-That will bring up the next popup:
+
+Copy your public key from the PuTTy:
+
+![Putty public](./putty-public.png)
+
+Copy all the text in the highlighted part of PuTTy.
+
+![Digital ocean public key](./digital-ocean-paste.png)
+
+Paste the key in the highlighted box then give your key a descriptive **Name** and click **Add SSH key**.
+
+Awesome! We are now done with setting up our DigitalOcean to talk with Circle CI via SSH when we deploy later.
+
+### Create a Digital Ocean droplet
+
+Once you're in Digital Ocean create a Droplet(the smallest \$5 one should be fine for the purposes of this tutorial).
+
+> I made my Digital Ocean droplet with an Ubuntu distribution.
+
+Before you click **Create** at the bottom, first make sure you've set your droplet to use your added public SSH key from earlier.
+
+![Digital Ocean key set](./DO-key-set.png)
+
+Select your key from the list of available keys there.
+
+Great! Now we've got a running droplet that can talk to Circle CI via SSH!
+
+The final stage of setup is to create a **DockerHub** account so that we have somewhere to push our Docker image to larer.
+
+### Final step of setup: the DockerHub
+
+Now we have our Circle CI connected to our Github repo to pull code changes and a Digital Ocean droplet to host our Docker image on, the
+last thing we need is a place to store and transfer our image into the droplet from.
+
+Luckily for us Docker provides this for us in the form of **DockerHub**.
