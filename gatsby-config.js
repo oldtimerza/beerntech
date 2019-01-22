@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Oldtimerza.js`,
+    title: `Beer n Tech`,
     author: `Bradley Morris`,
     description: `A blog about a software developer experimenting with modern web technologies`,
     siteUrl: `https://oldtimerza.github.io`,
