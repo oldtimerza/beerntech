@@ -11,10 +11,14 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.markdownRemark
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
-
+    const author = post.frontmatter.author
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title={post.frontmatter.title} description={post.excerpt} />
+        <SEO
+          title={post.frontmatter.title}
+          description={post.excerpt}
+          author={post.frontmatter.author}
+        />
         <h1>{post.frontmatter.title}</h1>
         <p
           style={{
@@ -32,7 +36,8 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
-        <Bio />
+
+        <Bio author={author} />
 
         <ul
           style={{
@@ -70,7 +75,6 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-        author
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -80,6 +84,17 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        author {
+          id
+          bio
+          avatar {
+            childImageSharp {
+              fixed(width: 50, height: 50) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
       }
     }
   }

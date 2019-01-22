@@ -8,6 +8,11 @@ module.exports = {
       twitter: ``,
     },
   },
+  mapping: {
+    'AuthorYaml.avatar': `file(absolutePath: { regex: AuthorYaml.avatar })`,
+    'MarkdownRemark.frontmatter.author': `AuthorYaml`,
+    'AllMarkdownRemark.frontmatter.author': `AuthorYaml`,
+  },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -46,6 +51,7 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-google-analytics`,
