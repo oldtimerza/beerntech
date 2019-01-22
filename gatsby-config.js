@@ -3,7 +3,7 @@ module.exports = {
     title: `Oldtimerza.js`,
     author: `Bradley Morris`,
     description: `A blog about a software developer experimenting with modern web technologies`,
-    siteUrl: `https://oldtimerza.github.io/`,
+    siteUrl: `https://oldtimerza.github.io/beerntech`,
     social: {
       twitter: ``,
     },
