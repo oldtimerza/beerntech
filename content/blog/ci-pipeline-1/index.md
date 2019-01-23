@@ -1,8 +1,7 @@
---
+---
 title: Simple CI pipeline - Part 1 - Setup
 author: Bradley Morris
 date: '2019-01-19T22:40:32.169Z'
-
 ---
 
 ##Introduction

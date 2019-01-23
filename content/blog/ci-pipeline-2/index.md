@@ -1,7 +1,7 @@
---
+---
 title: Simple CI pipeline - Part 2 - Configuration
+author: Bradley Morris
 date: '2019-01-22T22:40:32.169Z'
-
 ---
 
 ## Welcome back
@@ -22,4 +22,53 @@ The workflow is setup in our config.yml file and uses a series of **jobs** defin
 Our workflow will look like the following when we are done:
 
 ```yaml
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    environment:
+      NODE_ENV: 'test'
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --production=false
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Test
+          command: yarn test
+  deploy:
+    docker:
+      - image: circleci/node:7
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Deploy image to Docker Hub
+          command: |
+            docker build --build-arg DOCKER_USER=$DOCKER_USER --build-arg DOCKER_PASSWORD=$DOCKER_PASSWORD -t oldtimerza/blade-express .
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            docker push oldtimerza/blade-express
+      - run:
+          name: Run docker image on Digital Ocean Droplet
+          command: |
+            ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no 'docker stop app && docker rm $(docker ps -a -q) && docker rmi $(docker images -q) && docker pull oldtimerza/blade-express && docker run -d -t -p 80:3000 --name app oldtimerza/blade-express'
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
 ```
