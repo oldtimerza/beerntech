@@ -11,14 +11,12 @@ class BlogIndex extends React.Component {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
-
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
           title="All posts"
           keywords={[`blog`, `gatsby`, `javascript`, `react`]}
         />
-        <Bio />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
@@ -61,6 +59,17 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            author {
+              id
+              bio
+              avatar {
+                childImageSharp {
+                  fixed(width: 50, height: 50) {
+                    ...GatsbyImageSharpFixed
+                  }
+                }
+              }
+            }
           }
         }
       }

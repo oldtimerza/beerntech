@@ -1,12 +1,17 @@
 module.exports = {
   siteMetadata: {
-    title: `Oldtimerza.js`,
+    title: `Beer n Tech`,
     author: `Bradley Morris`,
     description: `A blog about a software developer experimenting with modern web technologies`,
-    siteUrl: `https://oldtimerza.github.io/`,
+    siteUrl: `https://oldtimerza.github.io`,
     social: {
       twitter: ``,
     },
+  },
+  mapping: {
+    'AuthorYaml.avatar': `file(absolutePath: { regex: AuthorYaml.avatar })`,
+    'MarkdownRemark.frontmatter.author': `AuthorYaml`,
+    'AllMarkdownRemark.frontmatter.author': `AuthorYaml`,
   },
   plugins: [
     {
@@ -46,6 +51,7 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-google-analytics`,

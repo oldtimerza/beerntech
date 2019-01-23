@@ -1,12 +1,13 @@
 --
 title: Simple CI pipeline - Part 1 - Setup
+author: Bradley Morris
 date: '2019-01-19T22:40:32.169Z'
 
 ---
 
 ##Introduction
 
-One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as possible
+One of the best ways to get a project up and running ,and making it easy to have the project be live and testable as soon as possible,
 is to start development with a **Continuous Integration(CI)** pipeline.
 
 **Continuous Integration**,from here on referred to as **CI**, is the process of having an automated process compile, test and deploy the project whenever a code change is detected in the
@@ -26,11 +27,11 @@ The technologies we'll be using are the following:
 
 What we need to setup:
 
-- A github repo.
-- Circle ci and connect to our Github repo.
-- Setup a digital ocean droplet.
-- A Circle ci config file (.circleci/config.yml).
-- A docker image file to create our docker image for deployment.
+- A Github repo.
+- Circle CI connected to our Github repo.
+- Setup a Digital Ocean droplet.
+- A Circle CI config file (.circleci/config.yml).
+- A Docker image file to create our Docker image for deployment.
 
 ### Github repo
 
@@ -47,12 +48,12 @@ First follow the steps on this page [Circle ci getting start](https://circleci.c
 
 > Be sure to create the .circleci/config.yml file and push it to your repo.
 
-Once your Github account is connected to your github repo we'll change the newly created config.yml to get our circleci workflow to build, test and deploy the project to digital ocean.
+Once your Github account is connected to your Github repo we'll change the newly created config.yml to get our circleci workflow to build, test and deploy the project to Digital Ocean.
 Next we'll setup an SSH key that we'll later use to connect to our Digital Ocean droplet for deployment.
 
 ### Playing with PuTTy
 
-I assume you are using a windows machine, this tutorial will focus on developing on a windows machine, we will use a niffty app called PuTTy to generate our SSH key.
+I assume you are using a windows machine ( this tutorial will focus on developing on a windows machine) so we will use a niffty app called PuTTy to generate our SSH key.
 
 Download PuTTY from here:
 [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
@@ -71,11 +72,11 @@ Like so:
 
 Now **Save public key** and **Save private key** some where on your PC that you'll remember.
 
-> Word of advice, give them distinguishing and descriptive names. It helps to avoid forgetting later.
+> Word of advice: give them distinguishing and descriptive names. It helps to avoid forgetting later.
 
 Now locate your private key file and open it in a text editor(I use [Sublime Text](https://www.sublimetext.com/)).
 I've generated a test key to show you.
-Copy the highlighted part in the image below:
+Copy the highlighted part as seen in the image below:
 
 ![private-key](./key-copy.png)
 
@@ -86,7 +87,7 @@ The top part is our public key and we will be giving that to Digital Ocean so it
 
 The next step is to copy the private key from the previous step and paste it into our SSH settings on Circle CI.
 
-Open up Circle CI again and go to your dashboard, from here click Settings -> Projects and you should see your project there like so:
+Open up Circle CI again and go to your dashboard. From here click Settings -> Projects and you should see your project there like so:
 
 ![circle-ci-settings](./circle-ci-project-setting.png)
 
@@ -99,7 +100,7 @@ As you can see I've already added a key for DigitalOcean. You probably won't hav
 Just click **Add SSH Key** in the top right and a little dialog box will open with **Hostname** and **Private Key** boxes.
 
 Enter **DigitalOcean** as the _Hostname_.
-Then paste your private key you made earlier into the **Private Key** part.
+Then paste your private key you copied earlier into the **Private Key** part.
 
 Finally click **Add SSH Key** to close the dialog and save the key.
 
@@ -109,7 +110,7 @@ Next we need to give Digital Ocean our public key.
 
 Head on over to Digital Ocean and create an account.
 
-To do this go to the following page:
+after you have an account, go to the following page:
 ![Digital Ocean Dashboard](./digital-ocean-dash.png)
 
 You now need to click on the **Securtiy** option on the sidebar near the bottom.
@@ -128,13 +129,13 @@ Copy all the text in the highlighted part of PuTTy.
 
 ![Digital ocean public key](./digital-ocean-paste.png)
 
-Paste the key in the highlighted box then give your key a descriptive **Name** and click **Add SSH key**.
+Paste the key in the highlighted box on the above image then give your key a descriptive **Name** and click **Add SSH key**.
 
 Awesome! We are now done with setting up our DigitalOcean to talk with Circle CI via SSH when we deploy later.
 
 ### Create a Digital Ocean droplet
 
-Once you're in Digital Ocean create a Droplet(the smallest \$5 one should be fine for the purposes of this tutorial).
+While you're in Digital Ocean create a Droplet(the smallest \$5 one should be fine for the purposes of this tutorial).
 
 > I made my Digital Ocean droplet with an Ubuntu distribution.
 
@@ -148,12 +149,14 @@ Great! Now we've got a running droplet that can talk to Circle CI via SSH!
 
 The final stage of setup is to create a **DockerHub** account so that we have somewhere to push our Docker image to larer.
 
-### Final step of setup: the DockerHub
+### Final step of setup: DockerHub
 
 Now we have our Circle CI connected to our Github repo to pull code changes and a Digital Ocean droplet to host our Docker image on, the
 last thing we need is a place to store and transfer our image into the droplet from.
 
 Luckily for us Docker provides this for us in the form of **DockerHub**.
+
+> Think of it like github for Docker images.
 
 Head on over to [DockerHub](https://hub.docker.com/)
 
@@ -169,10 +172,12 @@ Give your repository a name that you will remember as we will need it later, giv
 
 Then click **Create**.
 
-> Remember the name you gave the repository as we'll need it when configuring Circle CI to deploy our app.(Mine is oldtimer/blade-express as seen from the dashboard).
+> Remember the name you gave the repository as we'll need it when configuring Circle CI to deploy our app.(Mine is oldtimerza/blade-express as seen from the dashboard).
 
 ![Docker dash](./docker-hub-dash.png)
 
-You now have everything you need to do the final part of this tutorial and that is to configure our project with a DockerFile and update our .circleci/config.yml to build, test and deploy everything automatically whenever we push code to our Github repo.
+You now have everything you need to do the final part of this tutorial.
+
+That is to configure our project with a DockerFile and update our .circleci/config.yml to build, test and deploy everything automatically whenever we push code to our Github repo.
 
 Stay tuned for the next part of this tutorial: **Configuration**.
