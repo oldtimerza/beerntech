@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Beer n Tech]]></title><description><![CDATA[A blog about a software developer experimenting with modern web technologies]]></description><link>https://oldtimerza.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 22 Jan 2019 23:14:36 GMT</lastBuildDate><item><title><![CDATA[Simple CI pipeline - Part 1 - Setup]]></title><description><![CDATA[Introduction One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as…]]></description><link>https://oldtimerza.github.io/ci-pipeline-1/</link><guid isPermaLink="false">https://oldtimerza.github.io/ci-pipeline-1/</guid><pubDate>Sat, 19 Jan 2019 22:40:32 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;One of the best ways to get a project up and running and making it easy to have the project be live and testable as soon as possible
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Beer n Tech]]></title><description><![CDATA[A blog about a software developer experimenting with modern web technologies]]></description><link>https://oldtimerza.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 23 Jan 2019 21:02:14 GMT</lastBuildDate><item><title><![CDATA[Simple CI pipeline - Part 1 - Setup]]></title><description><![CDATA[Introduction One of the best ways to get a project up and running ,and making it easy to have the project be live and testable as soon as…]]></description><link>https://oldtimerza.github.io/ci-pipeline-1/</link><guid isPermaLink="false">https://oldtimerza.github.io/ci-pipeline-1/</guid><pubDate>Sat, 19 Jan 2019 22:40:32 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;One of the best ways to get a project up and running ,and making it easy to have the project be live and testable as soon as possible,
 is to start development with a &lt;strong&gt;Continuous Integration(CI)&lt;/strong&gt; pipeline.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Continuous Integration&lt;/strong&gt;,from here on referred to as &lt;strong&gt;CI&lt;/strong&gt;, is the process of having an automated process compile, test and deploy the project whenever a code change is detected in the
 repository.&lt;/p&gt;
@@ -15,11 +15,11 @@ repository.&lt;/p&gt;
 &lt;h2&gt;Step 1: Setup&lt;/h2&gt;
 &lt;p&gt;What we need to setup:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;A github repo.&lt;/li&gt;
-&lt;li&gt;Circle ci and connect to our Github repo.&lt;/li&gt;
-&lt;li&gt;Setup a digital ocean droplet.&lt;/li&gt;
-&lt;li&gt;A Circle ci config file (.circleci/config.yml).&lt;/li&gt;
-&lt;li&gt;A docker image file to create our docker image for deployment.&lt;/li&gt;
+&lt;li&gt;A Github repo.&lt;/li&gt;
+&lt;li&gt;Circle CI connected to our Github repo.&lt;/li&gt;
+&lt;li&gt;Setup a Digital Ocean droplet.&lt;/li&gt;
+&lt;li&gt;A Circle CI config file (.circleci/config.yml).&lt;/li&gt;
+&lt;li&gt;A Docker image file to create our Docker image for deployment.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Github repo&lt;/h3&gt;
 &lt;p&gt;For the purpose of this tutorial I’ll be using the following repository I have for an existing project:&lt;/p&gt;
@@ -67,10 +67,10 @@ We’ll skip this setup stage.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Be sure to create the .circleci/config.yml file and push it to your repo.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Once your Github account is connected to your github repo we’ll change the newly created config.yml to get our circleci workflow to build, test and deploy the project to digital ocean.
+&lt;p&gt;Once your Github account is connected to your Github repo we’ll change the newly created config.yml to get our circleci workflow to build, test and deploy the project to Digital Ocean.
 Next we’ll setup an SSH key that we’ll later use to connect to our Digital Ocean droplet for deployment.&lt;/p&gt;
 &lt;h3&gt;Playing with PuTTy&lt;/h3&gt;
-&lt;p&gt;I assume you are using a windows machine, this tutorial will focus on developing on a windows machine, we will use a niffty app called PuTTy to generate our SSH key.&lt;/p&gt;
+&lt;p&gt;I assume you are using a windows machine ( this tutorial will focus on developing on a windows machine) so we will use a niffty app called PuTTy to generate our SSH key.&lt;/p&gt;
 &lt;p&gt;Download PuTTY from here:
 &lt;a href=&quot;https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html&quot;&gt;Putty&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;When you have it installed go ahead and open it up.&lt;/p&gt;
@@ -146,11 +146,11 @@ Like so:&lt;/p&gt;
     &lt;/p&gt;
 &lt;p&gt;Now &lt;strong&gt;Save public key&lt;/strong&gt; and &lt;strong&gt;Save private key&lt;/strong&gt; some where on your PC that you’ll remember.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Word of advice, give them distinguishing and descriptive names. It helps to avoid forgetting later.&lt;/p&gt;
+&lt;p&gt;Word of advice: give them distinguishing and descriptive names. It helps to avoid forgetting later.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Now locate your private key file and open it in a text editor(I use &lt;a href=&quot;https://www.sublimetext.com/&quot;&gt;Sublime Text&lt;/a&gt;).
 I’ve generated a test key to show you.
-Copy the highlighted part in the image below:&lt;/p&gt;
+Copy the highlighted part as seen in the image below:&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -188,7 +188,7 @@ Copy the highlighted part in the image below:&lt;/p&gt;
 The top part is our public key and we will be giving that to Digital Ocean so it can verify if someone SSHing into our droplet has the rights to do so.&lt;/p&gt;
 &lt;h3&gt;Give Circle CI the private key&lt;/h3&gt;
 &lt;p&gt;The next step is to copy the private key from the previous step and paste it into our SSH settings on Circle CI.&lt;/p&gt;
-&lt;p&gt;Open up Circle CI again and go to your dashboard, from here click Settings -&gt; Projects and you should see your project there like so:&lt;/p&gt;
+&lt;p&gt;Open up Circle CI again and go to your dashboard. From here click Settings -&gt; Projects and you should see your project there like so:&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -267,12 +267,12 @@ The top part is our public key and we will be giving that to Digital Ocean so it
 &lt;p&gt;As you can see I’ve already added a key for DigitalOcean. You probably won’t have anything there.&lt;/p&gt;
 &lt;p&gt;Just click &lt;strong&gt;Add SSH Key&lt;/strong&gt; in the top right and a little dialog box will open with &lt;strong&gt;Hostname&lt;/strong&gt; and &lt;strong&gt;Private Key&lt;/strong&gt; boxes.&lt;/p&gt;
 &lt;p&gt;Enter &lt;strong&gt;DigitalOcean&lt;/strong&gt; as the &lt;em&gt;Hostname&lt;/em&gt;.
-Then paste your private key you made earlier into the &lt;strong&gt;Private Key&lt;/strong&gt; part.&lt;/p&gt;
+Then paste your private key you copied earlier into the &lt;strong&gt;Private Key&lt;/strong&gt; part.&lt;/p&gt;
 &lt;p&gt;Finally click &lt;strong&gt;Add SSH Key&lt;/strong&gt; to close the dialog and save the key.&lt;/p&gt;
 &lt;p&gt;Next we need to give Digital Ocean our public key.&lt;/p&gt;
 &lt;h3&gt;Give Digital Ocean the public key&lt;/h3&gt;
 &lt;p&gt;Head on over to Digital Ocean and create an account.&lt;/p&gt;
-&lt;p&gt;To do this go to the following page:
+&lt;p&gt;after you have an account, go to the following page:
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -419,10 +419,10 @@ Then paste your private key you made earlier into the &lt;strong&gt;Private Key&
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;Paste the key in the highlighted box then give your key a descriptive &lt;strong&gt;Name&lt;/strong&gt; and click &lt;strong&gt;Add SSH key&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Paste the key in the highlighted box on the above image then give your key a descriptive &lt;strong&gt;Name&lt;/strong&gt; and click &lt;strong&gt;Add SSH key&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Awesome! We are now done with setting up our DigitalOcean to talk with Circle CI via SSH when we deploy later.&lt;/p&gt;
 &lt;h3&gt;Create a Digital Ocean droplet&lt;/h3&gt;
-&lt;p&gt;Once you’re in Digital Ocean create a Droplet(the smallest $5 one should be fine for the purposes of this tutorial).&lt;/p&gt;
+&lt;p&gt;While you’re in Digital Ocean create a Droplet(the smallest $5 one should be fine for the purposes of this tutorial).&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;I made my Digital Ocean droplet with an Ubuntu distribution.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -467,10 +467,13 @@ Then paste your private key you made earlier into the &lt;strong&gt;Private Key&
 &lt;p&gt;Select your key from the list of available keys there.&lt;/p&gt;
 &lt;p&gt;Great! Now we’ve got a running droplet that can talk to Circle CI via SSH!&lt;/p&gt;
 &lt;p&gt;The final stage of setup is to create a &lt;strong&gt;DockerHub&lt;/strong&gt; account so that we have somewhere to push our Docker image to larer.&lt;/p&gt;
-&lt;h3&gt;Final step of setup: the DockerHub&lt;/h3&gt;
+&lt;h3&gt;Final step of setup: DockerHub&lt;/h3&gt;
 &lt;p&gt;Now we have our Circle CI connected to our Github repo to pull code changes and a Digital Ocean droplet to host our Docker image on, the
 last thing we need is a place to store and transfer our image into the droplet from.&lt;/p&gt;
 &lt;p&gt;Luckily for us Docker provides this for us in the form of &lt;strong&gt;DockerHub&lt;/strong&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Think of it like github for Docker images.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Head on over to &lt;a href=&quot;https://hub.docker.com/&quot;&gt;DockerHub&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Create an account and login.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -517,7 +520,7 @@ last thing we need is a place to store and transfer our image into the droplet f
 &lt;p&gt;Give your repository a name that you will remember as we will need it later, give it a description if you want.&lt;/p&gt;
 &lt;p&gt;Then click &lt;strong&gt;Create&lt;/strong&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Remember the name you gave the repository as we’ll need it when configuring Circle CI to deploy our app.(Mine is oldtimer/blade-express as seen from the dashboard).&lt;/p&gt;
+&lt;p&gt;Remember the name you gave the repository as we’ll need it when configuring Circle CI to deploy our app.(Mine is oldtimerza/blade-express as seen from the dashboard).&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;
   &lt;a
@@ -556,5 +559,6 @@ last thing we need is a place to store and transfer our image into the droplet f
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;p&gt;You now have everything you need to do the final part of this tutorial and that is to configure our project with a DockerFile and update our .circleci/config.yml to build, test and deploy everything automatically whenever we push code to our Github repo.&lt;/p&gt;
+&lt;p&gt;You now have everything you need to do the final part of this tutorial.&lt;/p&gt;
+&lt;p&gt;That is to configure our project with a DockerFile and update our .circleci/config.yml to build, test and deploy everything automatically whenever we push code to our Github repo.&lt;/p&gt;
 &lt;p&gt;Stay tuned for the next part of this tutorial: &lt;strong&gt;Configuration&lt;/strong&gt;.&lt;/p&gt;</content:encoded></item></channel></rss>
