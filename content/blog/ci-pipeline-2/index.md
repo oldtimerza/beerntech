@@ -20,7 +20,7 @@ If you don't then you can fork and clone this repository which contains the basi
 
 [simple-ci-pipeline](https://github.com/oldtimerza/simple-ci-pipeline)
 
-Get yourself a cup of tea because this is quite a length explanation.
+Get yourself a cup of tea because this is quite a lengthy explanation.
 
 Let's get started!
 
@@ -327,6 +327,162 @@ We do this because our node process will be running on port 3000 but we want tha
 
 **oldtimerza/blade-express** is the name of the image that docker should initialise a container with.
 
+### Workflows
+
+```yaml
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+```
+
+As mentioned earlier **workflows** define the order that our defined jobs should be run in.
+
+```yaml
+version: 2
+```
+
+The version of **workflows** that Circle CI should expect to see. We use version 2. Don't worry too much about it.
+
+```yaml
+build-deploy:
+  jobs:
+    - build
+    - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
+```
+
+**build-deploy** is the name of the workflow that will appear in our Circle CI logs on the dashboard.
+
+**jobs** is the ordered list of our defined jobs. First we run the **build** job.
+
+Then we run the **deploy** job. However. Notice the **requires** part. This tells Circle CI to only run **deploy** if our **build** job completed successfully.
+
+Remember what I mentioned about tests earlier? This step is crucial as it only allows the **deploy** job to run if our tests all passed during the **build** job.
+
+The **filters** sections basically tells Circle CI to only do the jobs on our **main** branch of repository.
+
 The Last stage of our journey will be to configure our **Dockerfile** so that Docker knows what to include in ,and how to create, our image.
 
 ## Dockerfile config
+
+Our **Dockerfile** will look like the following when we are done:
+
+```docker
+FROM node:8.11.3-alpine
+
+ARG DOCKER_USER
+ARG DOCKER_PASSWORD
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app
+
+RUN yarn install
+
+ENV NODE_ENV=production
+ENV DOCKER_USER=$DOCKER_USER
+ENV DOCKER_PASSWORD=$DOCKER_PASSWORD
+
+EXPOSE 3000
+CMD [ "yarn", "start" ]
+```
+
+```docker
+FROM node:8.11.3-alpine
+```
+
+This tells docker to get a base image to expand upon, in our case we get one of node's base images.
+
+```dockerk
+ARG DOCKER_USER
+ARG DOCKER_PASSWORD
+```
+
+These are the arguments that docker expects to build this image with. We passed these in earlier from Circle CI with the **--build-arg** arguments on our **docker build** command.
+
+```docker
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app
+```
+
+**RUN** tells Docker to run the **mkdir** command and creates a directory usr/src/app for us.
+**WORKDIR** tells Docker to change our current working directory to this new dir.
+
+**COPY . /usr/src/app** tells Docker to copy all files from our current directory (denoted by the .dot) into our newly created directory in our Docker image.
+
+```docker
+RUN yarn install
+```
+
+again we use Dockers **RUN** command to execute **yarn install** which will download and install all our necessary npm packages inside our image.
+
+```docker
+ENV NODE_ENV=production
+ENV DOCKER_USER=$DOCKER_USER
+ENV DOCKER_PASSWORD=$DOCKER_PASSWORD
+```
+
+We setup some environment variables for image , we set node to production mode.
+
+We set our **DOCKER_USER** to the user we accepted as a build argument in our docker build command and similarly for our password.
+
+```docker
+EXPOSE 3000
+CMD [ "yarn", "start" ]
+```
+
+Lastly we **EXPOSE** the image's port 3000 so that Docker can map to our port 80 defined earlier during our Circle CI **docker build** command.
+
+Finally **CMD**.<span style="color:red">This is important</span>
+
+Essentialy what this is , is an ordered list of commands that Docker will run in our container when it is created from this image.
+
+In this instance it will run **yarn start** when a container made from this image is created and started.
+
+This runs our **npm start** script defined in our package.json. Normally this script is where you would put your applications starting commands.
+Usually starting a node process with an express server or something similar.
+
+The only thing left to do now is to setup our Circle CI environment variables to pass into this process.
+
+## The final hurdle: Circle CI Environment variables
+
+Login to your Circle CI account.
+
+Once in the dashboard head over to Settings -> Projects (Under Organizations) and click the little cog icon next to the project we setup in step one of this tutorial.
+
+You should end up here:
+
+![Circle CI Env Vars](./circle-ci-vars.png)
+
+Click the **Add Variable** button to create a variable for each of the following:
+
+- DOCKER_PASSWORD : The password you used for your DockerHub account login.
+- DOCKER_USER : The username you used for your DockerHub account login.
+- NODE_ENV : Set to "production" (without the quotes obvs.)
+- SSH_HOST : The IP address of our Digital Ocean droplet. See the image below to see where to get it.
+- SSH_USER : Set to "root" , this is the user we will SSH into our droplet with. Ubuntu root will give us admin level priviliges on our Digital Ocean droplet.
+
+The IP address of our droplet, it will require you to login into your Digital Ocean account and look at your **Droplets** screen.
+
+![Digital Ocean IP](./DigitalOcean-ip.png)
+
+And with this we are finally finished with our journey.
+
+You now have a pipeline setup that can pull your latest code changes, build it, test it, deploy it, and run it on a droplet.
+
+I hope this tutorial has been helpful. Watch out for the final part **Lights, Camera, Hello World!** where I will create and deploy a simple example project to demonstrate a working sample.
