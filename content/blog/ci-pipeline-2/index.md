@@ -10,6 +10,18 @@ In part 1 of this tutorial we went through setting up a Digital ocean droplet, D
 
 In this tutorial we will continue from that starting point and configure our Circle ci **workflow** to pull our latest changes, build our project , test it and deploy it via a docker image to our Digital Ocean droplet.
 
+Before we get started configuring, you'll need to make sure that the repo you used for the setup contains the following files:
+
+- .circleci/config.yml
+- Dockerfile
+- package.json, with a "test" script defined.
+
+If you don't then you can fork and clone this repository which contains the basic structure and empty files needed.
+
+[simple-ci-pipeline](https://github.com/oldtimerza/simple-ci-pipeline)
+
+Get yourself a cup of tea because this is quite a length explanation.
+
 Let's get started!
 
 ## Circle CI config
@@ -220,3 +232,101 @@ deploy:
         command: |
           ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no 'docker stop app && docker rm $(docker ps -a -q) && docker rmi $(docker images -q) && docker pull oldtimerza/blade-express && docker run -d -t -p 80:3000 --name app oldtimerza/blade-express'
 ```
+
+Similarly to the **build** job we did above we define the environment that wil be used to run these steps inside.
+
+In this case we use **circleci/node:7**. (I don't it's important that it is a different version of node, but it's good to show that different environments can be used per job).
+
+Again we use the **checkout** step to get our latest code into this environment.
+
+```yaml
+- setup_remote_docker
+```
+
+The **setup \_remote \_docker** step is another pre-defined step specific to Circle CI.
+
+This step creates a new docker container environment for us to setup our Docker image inside.
+
+The reason we need this is because the environment that Circle CI is currently running our commands in is a Docker container.
+
+This is a problem because Docker does not allow building docker images from inside a container.
+
+So we tell Circle CI that we are going to run some docker build commands and that it needs to do this outside of this current container.
+
+> building/pushing images and running containers happens in the remote Docker Engine.
+> More [here](https://discuss.circleci.com/t/confused-about-what-setup-remote-docker-really-does/11469)
+
+```yaml
+- run:
+    name: Deploy image to Docker Hub
+    command: |
+      docker build --build-arg DOCKER_USER=$DOCKER_USER --build-arg DOCKER_PASSWORD=$DOCKER_PASSWORD -t oldtimerza/blade-express .
+      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      docker push oldtimerza/blade-express
+```
+
+As the name of this next step implies, we are going to build our Docker image and deploy it to our **DockerHub**.
+
+The \$TEXT are environment variables. We can set these environment vairables from our Circle CI dashboard and we'll go through that part in a bit.
+
+For now just remember that \$TEXT are environment variables in our build environment.
+
+> \$ENV_VARIABLE are Circle CI's environment variables setup for use in this build environment from the dashboard.
+
+What this command does in order.
+
+```yaml
+docker build --build-arg DOCKER_USER=$DOCKER_USER --build-arg DOCKER_PASSWORD=$DOCKER_PASSWORD -t oldtimerza/blade-express .
+```
+
+run docker build command, this tells docker to build our image using the config in our Dockerfile. (we will handle that later).
+**--build-arg DOCKER_USER = \$DOCKER_USER** is a way to set variables that our Dockerfile needs to execute with.
+
+In this instance we set our docker **DOCKER_USER** argument to be the environment variable that Circle CI provided.
+
+We do the same for the password.
+
+**-t oldtimerza/blade-express** is the tag(the name) of our docker image.
+
+The **.**(dot) at the end is the path that Docker looks for stuff in, dot simply means this current directory.
+
+```yaml
+docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+```
+
+Next we log into our DockerHub account with the username and password provided by Circle CI environment variables.
+
+```yaml
+docker push oldtimerza/blade-express
+```
+
+Finally we push this image to our DockerHub project repo. (named oldtimerza/blade-express in this example, but yours will be different from the setup stage)
+
+```yaml
+- run:
+    name: Run docker image on Digital Ocean Droplet
+    command: |
+      ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no 'docker stop app && docker rm $(docker ps -a -q) && docker rmi $(docker images -q) && docker pull oldtimerza/blade-express && docker run -d -t -p 80:3000 --name app oldtimerza/blade-express'
+```
+
+> Note: the ' marks are important because we need all the docker commands to be run inside the SSH shell. Also take note of the $SSH_USER and $SSH_HOST environment variables that we'll need to configure from Circle CI's dashboard.
+
+This final step of the process will SSH into our Digital Ocean droplet, stop any currently running docker containers, remove any out-dated images and pull our latest image from our DockerHub into the droplet.
+
+Then (while still SSH'ed in) we tell docker (on the droplet) to run our new image.
+
+```yaml
+-p 80:3000 --name app oldtimerza/blade-express'
+```
+
+**-p 80:3000** tells Docker to connect the running containers port 3000 to the external hosts port 80.
+
+We do this because our node process will be running on port 3000 but we want that to be accessed from port 80 (i.e. from the web).
+
+**--name app** tells docker to call this running container "app" so that we can easily identify it should we need to.
+
+**oldtimerza/blade-express** is the name of the image that docker should initialise a container with.
+
+The Last stage of our journey will be to configure our **Dockerfile** so that Docker knows what to include in ,and how to create, our image.
+
+## Dockerfile config
