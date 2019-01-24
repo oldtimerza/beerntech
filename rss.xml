@@ -1,4 +1,384 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Beer n Tech]]></title><description><![CDATA[A blog about a software developer experimenting with modern web technologies]]></description><link>https://oldtimerza.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 24 Jan 2019 19:17:14 GMT</lastBuildDate><item><title><![CDATA[Simple CI pipeline - Part 1 - Setup]]></title><description><![CDATA[Introduction One of the best ways to get a project up and running ,and making it easy to have the project be live and testable as soon as…]]></description><link>https://oldtimerza.github.io/ci-pipeline-1/</link><guid isPermaLink="false">https://oldtimerza.github.io/ci-pipeline-1/</guid><pubDate>Sat, 19 Jan 2019 22:40:32 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Beer n Tech]]></title><description><![CDATA[A blog about a software developer experimenting with modern web technologies]]></description><link>https://oldtimerza.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 24 Jan 2019 22:36:38 GMT</lastBuildDate><item><title><![CDATA[Simple CI pipeline - Part 2 - Configuration]]></title><description><![CDATA[Welcome back In part 1 of this tutorial we went through setting up a Digital ocean droplet, Docker hub , github repo and a Circle CI account…]]></description><link>https://oldtimerza.github.io/ci-pipeline-2/</link><guid isPermaLink="false">https://oldtimerza.github.io/ci-pipeline-2/</guid><pubDate>Tue, 22 Jan 2019 22:40:32 GMT</pubDate><content:encoded>&lt;h2&gt;Welcome back&lt;/h2&gt;
+&lt;p&gt;In part 1 of this tutorial we went through setting up a Digital ocean droplet, Docker hub , github repo and a Circle CI account to connect and get our latest code changes from repo and access our digital ocean droplet.&lt;/p&gt;
+&lt;p&gt;In this tutorial we will continue from that starting point and configure our Circle ci &lt;strong&gt;workflow&lt;/strong&gt; to pull our latest changes, build our project , test it and deploy it via a docker image to our Digital Ocean droplet.&lt;/p&gt;
+&lt;p&gt;Before we get started configuring, you’ll need to make sure that the repo you used for the setup contains the following files:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.circleci/config.yml&lt;/li&gt;
+&lt;li&gt;Dockerfile&lt;/li&gt;
+&lt;li&gt;package.json, with a “test” script defined.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you don’t then you can fork and clone this repository which contains the basic structure and empty files needed.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/oldtimerza/simple-ci-pipeline&quot;&gt;simple-ci-pipeline&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Get yourself a cup of tea because this is quite a lengthy explanation.&lt;/p&gt;
+&lt;p&gt;Let’s get started!&lt;/p&gt;
+&lt;h2&gt;Circle CI config&lt;/h2&gt;
+&lt;p&gt;When we push code changes to our repo, Circle CI will get a notification that something has changed and that it needs to run it’s process.&lt;/p&gt;
+&lt;p&gt;First Circle CI pulls our latest code and then looks for a &lt;strong&gt;.circleci&lt;/strong&gt; folder and a &lt;strong&gt;config.yml&lt;/strong&gt; in it.
+It uses this config file to determine how it should run it’s deployment process.&lt;/p&gt;
+&lt;p&gt;We created a &lt;strong&gt;.circleci/config.yml&lt;/strong&gt; file in our setup step. This time around we will edit this file to create a &lt;strong&gt;workflow&lt;/strong&gt; that will do everything we need automatically everytime we push a code change to our repo.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;workflows&lt;/strong&gt; are an ordered series of &lt;strong&gt;jobs&lt;/strong&gt; defined in our config.yml file to achieve our deployment process.
+The &lt;strong&gt;jobs&lt;/strong&gt; define the &lt;strong&gt;steps&lt;/strong&gt; our process takes.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;workflows order our jobs and jobs are a named collection of steps.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Our &lt;strong&gt;config.yml&lt;/strong&gt; will look like the following when we are done:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;docker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; circleci/node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;NODE_ENV&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;test&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; checkout
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;restore_cache&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dependency&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cache&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; checksum &quot;package.json&quot; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Install Dependencies
+          &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; yarn install &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;production=false
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;save_cache&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dependency&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cache&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; checksum &quot;package.json&quot; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./node_modules
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Test
+          &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; yarn test
+  &lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;docker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; circleci/node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; checkout
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; setup_remote_docker
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy image to Docker Hub
+          &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+            docker build --build-arg DOCKER_USER=$DOCKER_USER --build-arg DOCKER_PASSWORD=$DOCKER_PASSWORD -t oldtimerza/blade-express .
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            docker push oldtimerza/blade-express&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Run docker image on Digital Ocean Droplet
+          &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+            ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no &apos;docker stop app &amp;amp;&amp;amp; docker rm $(docker ps -a -q) &amp;amp;&amp;amp; docker rmi $(docker images -q) &amp;amp;&amp;amp; docker pull oldtimerza/blade-express &amp;amp;&amp;amp; docker run -d -t -p 80:3000 --name app oldtimerza/blade-express&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token key atrule&quot;&gt;workflows&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;build-deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; build
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;requires&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; build
+          &lt;span class=&quot;token key atrule&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;token key atrule&quot;&gt;only&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Let’s break it down.&lt;/p&gt;
+&lt;h3&gt;Breakdown&lt;/h3&gt;
+&lt;h4&gt;Version&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;strong&gt;version&lt;/strong&gt; tag you see at the top is just there to tell Circle CI which version of it’s config format it needs to expect to understand what is to follow.
+In our case it is version 2.&lt;/p&gt;
+&lt;h4&gt;Jobs&lt;/h4&gt;
+&lt;p&gt;We have two jobs defined in our config file: &lt;strong&gt;build&lt;/strong&gt; and &lt;strong&gt;deploy&lt;/strong&gt;.&lt;/p&gt;
+&lt;h5&gt;Build&lt;/h5&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;docker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; circleci/node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;NODE_ENV&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;test&apos;&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; checkout
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;restore_cache&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dependency&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cache&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; checksum &quot;package.json&quot; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Install Dependencies
+        &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; yarn install &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;production=false
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;save_cache&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dependency&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cache&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; checksum &quot;package.json&quot; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./node_modules
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Test
+        &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; yarn test&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In order for Circle CI to build and test our code it needs some kind of environment to do so.&lt;/p&gt;
+&lt;p&gt;How we’re doing it is to tell Circle CI to create an environment from a docker image with the right environment installed that we need to run our building and testing.
+That is precisely what this section does:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We use the Docker image created and maintained by the circleci team called circleci/node:8.
+This Docker container will have node version 8.x installed as well as yarn and some other useful stuff.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;docker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; circleci/node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Next we setup some environment variables that our new container should have access to. We set our &lt;strong&gt;NODE_ENV&lt;/strong&gt; variable to test.
+We do this so that our Node process knows to run in test mode.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;NODE_ENV&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;test&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Next we define the steps (the sequences of things to do) once Circle CI has created this environment and running inside it.&lt;/p&gt;
+&lt;p&gt;The first &lt;strong&gt;step&lt;/strong&gt; in our &lt;strong&gt;job&lt;/strong&gt; is &lt;strong&gt;checkout&lt;/strong&gt;. This is a specific step that Circle CI picks up. It tells Circle CI to pull the latest code from our connected repo and switch to it’s master branch.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; checkout&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We have a weird &lt;strong&gt;step&lt;/strong&gt; next. The &lt;strong&gt;restore_cache&lt;/strong&gt; step.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;restore_cache&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dependency&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cache&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; checksum &quot;package.json&quot; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This saves us time each subsquent build. Instead of Circle CI downloading and installing all our npm packages each time we build, we instead store our &lt;strong&gt;node_modules&lt;/strong&gt; contents in a cache that Circle CI restores.
+We use the checksum of our &lt;strong&gt;package.json&lt;/strong&gt; file as the key for the cache entry so that if the &lt;strong&gt;package.json&lt;/strong&gt; contents change(i.e. we add a new package) the cache hit will miss and our &lt;strong&gt;node_modules&lt;/strong&gt; content will not be restored and the packages(with the new additions) will be re-installed.&lt;/p&gt;
+&lt;p&gt;After that we define our first custom &lt;strong&gt;step&lt;/strong&gt;. This &lt;strong&gt;step&lt;/strong&gt; is a &lt;strong&gt;run&lt;/strong&gt; step. A &lt;strong&gt;run&lt;/strong&gt; step is a step that is a command for Circle CI to run in the terminal inside the build environment.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Install Dependencies
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; yarn install &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;production=false&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;run&lt;/strong&gt; steps have a &lt;strong&gt;name&lt;/strong&gt; and a &lt;strong&gt;command&lt;/strong&gt;.
+The &lt;strong&gt;name&lt;/strong&gt; is just a descriptor that Circle CI will use to display the console output of our &lt;strong&gt;command&lt;/strong&gt; execution in a nice format on the dashboard.
+The &lt;strong&gt;command&lt;/strong&gt; part is the actual text that Circle CI will enter into the terminal and execute.&lt;/p&gt;
+&lt;p&gt;In this case our &lt;strong&gt;run&lt;/strong&gt; step is called &lt;strong&gt;Install Dependencies&lt;/strong&gt; and it executes the &lt;strong&gt;yarn install —production=false&lt;/strong&gt; command in the terminal.
+This step will essentially start a yarn installation process using our &lt;strong&gt;package.json&lt;/strong&gt; file for our project.&lt;/p&gt;
+&lt;p&gt;We again have a weird caching step.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;save_cache&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; dependency&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cache&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; checksum &quot;package.json&quot; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./node_modules&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You guessed it! This simply tells Circle CI to cache the contents of our &lt;strong&gt;node_modules&lt;/strong&gt; content under a key made up of &lt;strong&gt;dependency-cache-&lt;/strong&gt; and the checksum of our &lt;strong&gt;package.json&lt;/strong&gt; file.&lt;/p&gt;
+&lt;p&gt;This is so next time we run this build process we will have those contents ready at hand and not have to re-download and install them.&lt;/p&gt;
+&lt;p&gt;Finally we run another &lt;strong&gt;run&lt;/strong&gt; step.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Test
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; yarn test&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This run step is quite obvious. It tells Circle CI to run our &lt;strong&gt;test&lt;/strong&gt; script that we may have in our package.json.
+If the tests fail they will exit the process and Circle CI will fail our build automatically. MAGIC!&lt;/p&gt;
+&lt;h5&gt;Deploy&lt;/h5&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;docker&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; circleci/node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;7&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; checkout
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; setup_remote_docker
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy image to Docker Hub
+        &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+          docker build --build-arg DOCKER_USER=$DOCKER_USER --build-arg DOCKER_PASSWORD=$DOCKER_PASSWORD -t oldtimerza/blade-express .
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker push oldtimerza/blade-express&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Run docker image on Digital Ocean Droplet
+        &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+          ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no &apos;docker stop app &amp;amp;&amp;amp; docker rm $(docker ps -a -q) &amp;amp;&amp;amp; docker rmi $(docker images -q) &amp;amp;&amp;amp; docker pull oldtimerza/blade-express &amp;amp;&amp;amp; docker run -d -t -p 80:3000 --name app oldtimerza/blade-express&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Similarly to the &lt;strong&gt;build&lt;/strong&gt; job we did above we define the environment that wil be used to run these steps inside.&lt;/p&gt;
+&lt;p&gt;In this case we use &lt;strong&gt;circleci/node:7&lt;/strong&gt;. (I don’t it’s important that it is a different version of node, but it’s good to show that different environments can be used per job).&lt;/p&gt;
+&lt;p&gt;Again we use the &lt;strong&gt;checkout&lt;/strong&gt; step to get our latest code into this environment.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; setup_remote_docker&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;strong&gt;setup _remote _docker&lt;/strong&gt; step is another pre-defined step specific to Circle CI.&lt;/p&gt;
+&lt;p&gt;This step creates a new docker container environment for us to setup our Docker image inside.&lt;/p&gt;
+&lt;p&gt;The reason we need this is because the environment that Circle CI is currently running our commands in is a Docker container.&lt;/p&gt;
+&lt;p&gt;This is a problem because Docker does not allow building docker images from inside a container.&lt;/p&gt;
+&lt;p&gt;So we tell Circle CI that we are going to run some docker build commands and that it needs to do this outside of this current container.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;building/pushing images and running containers happens in the remote Docker Engine.
+More &lt;a href=&quot;https://discuss.circleci.com/t/confused-about-what-setup-remote-docker-really-does/11469&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Deploy image to Docker Hub
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+      docker build --build-arg DOCKER_USER=$DOCKER_USER --build-arg DOCKER_PASSWORD=$DOCKER_PASSWORD -t oldtimerza/blade-express .
+      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      docker push oldtimerza/blade-express&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As the name of this next step implies, we are going to build our Docker image and deploy it to our &lt;strong&gt;DockerHub&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The $TEXT are environment variables. We can set these environment vairables from our Circle CI dashboard and we’ll go through that part in a bit.&lt;/p&gt;
+&lt;p&gt;For now just remember that $TEXT are environment variables in our build environment.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$ENV_VARIABLE are Circle CI’s environment variables setup for use in this build environment from the dashboard.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;What this command does in order.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;docker build &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;build&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;arg DOCKER_USER=$DOCKER_USER &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;build&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;arg DOCKER_PASSWORD=$DOCKER_PASSWORD &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;t oldtimerza/blade&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;express .&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;run docker build command, this tells docker to build our image using the config in our Dockerfile. (we will handle that later).
+&lt;strong&gt;—build-arg DOCKER&lt;em&gt;USER = $DOCKER&lt;/em&gt;USER&lt;/strong&gt; is a way to set variables that our Dockerfile needs to execute with.&lt;/p&gt;
+&lt;p&gt;In this instance we set our docker &lt;strong&gt;DOCKER_USER&lt;/strong&gt; argument to be the environment variable that Circle CI provided.&lt;/p&gt;
+&lt;p&gt;We do the same for the password.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;-t oldtimerza/blade-express&lt;/strong&gt; is the tag(the name) of our docker image.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;.&lt;/strong&gt;(dot) at the end is the path that Docker looks for stuff in, dot simply means this current directory.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;docker login &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;u $DOCKER_USER &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;p $DOCKER_PASSWORD&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Next we log into our DockerHub account with the username and password provided by Circle CI environment variables.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;docker push oldtimerza/blade&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;express&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Finally we push this image to our DockerHub project repo. (named oldtimerza/blade-express in this example, but yours will be different from the setup stage)&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Run docker image on Digital Ocean Droplet
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token scalar string&quot;&gt;
+      ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no &apos;docker stop app &amp;amp;&amp;amp; docker rm $(docker ps -a -q) &amp;amp;&amp;amp; docker rmi $(docker images -q) &amp;amp;&amp;amp; docker pull oldtimerza/blade-express &amp;amp;&amp;amp; docker run -d -t -p 80:3000 --name app oldtimerza/blade-express&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: the ’ marks are important because we need all the docker commands to be run inside the SSH shell. Also take note of the $SSH&lt;em&gt;USER and $SSH&lt;/em&gt;HOST environment variables that we’ll need to configure from Circle CI’s dashboard.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This final step of the process will SSH into our Digital Ocean droplet, stop any currently running docker containers, remove any out-dated images and pull our latest image from our DockerHub into the droplet.&lt;/p&gt;
+&lt;p&gt;Then (while still SSH’ed in) we tell docker (on the droplet) to run our new image.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;p 80&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;3000 &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;name app oldtimerza/blade&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;express&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;-p 80:3000&lt;/strong&gt; tells Docker to connect the running containers port 3000 to the external hosts port 80.&lt;/p&gt;
+&lt;p&gt;We do this because our node process will be running on port 3000 but we want that to be accessed from port 80 (i.e. from the web).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;—name app&lt;/strong&gt; tells docker to call this running container “app” so that we can easily identify it should we need to.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;oldtimerza/blade-express&lt;/strong&gt; is the name of the image that docker should initialise a container with.&lt;/p&gt;
+&lt;h3&gt;Workflows&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;workflows&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;build-deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; build
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;requires&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; build
+          &lt;span class=&quot;token key atrule&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;token key atrule&quot;&gt;only&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As mentioned earlier &lt;strong&gt;workflows&lt;/strong&gt; define the order that our defined jobs should be run in.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The version of &lt;strong&gt;workflows&lt;/strong&gt; that Circle CI should expect to see. We use version 2. Don’t worry too much about it.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;build-deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; build
+    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;deploy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;requires&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; build
+        &lt;span class=&quot;token key atrule&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token key atrule&quot;&gt;only&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;build-deploy&lt;/strong&gt; is the name of the workflow that will appear in our Circle CI logs on the dashboard.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;jobs&lt;/strong&gt; is the ordered list of our defined jobs. First we run the &lt;strong&gt;build&lt;/strong&gt; job.&lt;/p&gt;
+&lt;p&gt;Then we run the &lt;strong&gt;deploy&lt;/strong&gt; job. However. Notice the &lt;strong&gt;requires&lt;/strong&gt; part. This tells Circle CI to only run &lt;strong&gt;deploy&lt;/strong&gt; if our &lt;strong&gt;build&lt;/strong&gt; job completed successfully.&lt;/p&gt;
+&lt;p&gt;Remember what I mentioned about tests earlier? This step is crucial as it only allows the &lt;strong&gt;deploy&lt;/strong&gt; job to run if our tests all passed during the &lt;strong&gt;build&lt;/strong&gt; job.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;filters&lt;/strong&gt; sections basically tells Circle CI to only do the jobs on our &lt;strong&gt;main&lt;/strong&gt; branch of repository.&lt;/p&gt;
+&lt;p&gt;The Last stage of our journey will be to configure our &lt;strong&gt;Dockerfile&lt;/strong&gt; so that Docker knows what to include in ,and how to create, our image.&lt;/p&gt;
+&lt;h2&gt;Dockerfile config&lt;/h2&gt;
+&lt;p&gt;Our &lt;strong&gt;Dockerfile&lt;/strong&gt; will look like the following when we are done:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;docker&quot;&gt;&lt;pre class=&quot;language-docker&quot;&gt;&lt;code class=&quot;language-docker&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;8.11.3&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;alpine
+
+&lt;span class=&quot;token keyword&quot;&gt;ARG&lt;/span&gt; DOCKER_USER
+&lt;span class=&quot;token keyword&quot;&gt;ARG&lt;/span&gt; DOCKER_PASSWORD
+
+&lt;span class=&quot;token keyword&quot;&gt;RUN&lt;/span&gt; mkdir &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;p /usr/src/app
+&lt;span class=&quot;token keyword&quot;&gt;WORKDIR&lt;/span&gt; /usr/src/app
+
+&lt;span class=&quot;token keyword&quot;&gt;COPY&lt;/span&gt; . /usr/src/app
+
+&lt;span class=&quot;token keyword&quot;&gt;RUN&lt;/span&gt; yarn install
+
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; NODE_ENV=production
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; DOCKER_USER=$DOCKER_USER
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; DOCKER_PASSWORD=$DOCKER_PASSWORD
+
+&lt;span class=&quot;token keyword&quot;&gt;EXPOSE&lt;/span&gt; 3000
+&lt;span class=&quot;token keyword&quot;&gt;CMD&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;yarn&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;start&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;docker&quot;&gt;&lt;pre class=&quot;language-docker&quot;&gt;&lt;code class=&quot;language-docker&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;8.11.3&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;alpine&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This tells docker to get a base image to expand upon, in our case we get one of node’s base images.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;dockerk&quot;&gt;&lt;pre class=&quot;language-dockerk&quot;&gt;&lt;code class=&quot;language-dockerk&quot;&gt;ARG DOCKER_USER
+ARG DOCKER_PASSWORD&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These are the arguments that docker expects to build this image with. We passed these in earlier from Circle CI with the &lt;strong&gt;—build-arg&lt;/strong&gt; arguments on our &lt;strong&gt;docker build&lt;/strong&gt; command.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;docker&quot;&gt;&lt;pre class=&quot;language-docker&quot;&gt;&lt;code class=&quot;language-docker&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;RUN&lt;/span&gt; mkdir &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;p /usr/src/app
+&lt;span class=&quot;token keyword&quot;&gt;WORKDIR&lt;/span&gt; /usr/src/app
+
+&lt;span class=&quot;token keyword&quot;&gt;COPY&lt;/span&gt; . /usr/src/app&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;RUN&lt;/strong&gt; tells Docker to run the &lt;strong&gt;mkdir&lt;/strong&gt; command and creates a directory usr/src/app for us.
+&lt;strong&gt;WORKDIR&lt;/strong&gt; tells Docker to change our current working directory to this new dir.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;COPY . /usr/src/app&lt;/strong&gt; tells Docker to copy all files from our current directory (denoted by the .dot) into our newly created directory in our Docker image.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;docker&quot;&gt;&lt;pre class=&quot;language-docker&quot;&gt;&lt;code class=&quot;language-docker&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;RUN&lt;/span&gt; yarn install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;again we use Dockers &lt;strong&gt;RUN&lt;/strong&gt; command to execute &lt;strong&gt;yarn install&lt;/strong&gt; which will download and install all our necessary npm packages inside our image.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;docker&quot;&gt;&lt;pre class=&quot;language-docker&quot;&gt;&lt;code class=&quot;language-docker&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; NODE_ENV=production
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; DOCKER_USER=$DOCKER_USER
+&lt;span class=&quot;token keyword&quot;&gt;ENV&lt;/span&gt; DOCKER_PASSWORD=$DOCKER_PASSWORD&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We setup some environment variables for image , we set node to production mode.&lt;/p&gt;
+&lt;p&gt;We set our &lt;strong&gt;DOCKER_USER&lt;/strong&gt; to the user we accepted as a build argument in our docker build command and similarly for our password.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;docker&quot;&gt;&lt;pre class=&quot;language-docker&quot;&gt;&lt;code class=&quot;language-docker&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;EXPOSE&lt;/span&gt; 3000
+&lt;span class=&quot;token keyword&quot;&gt;CMD&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;yarn&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;start&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Lastly we &lt;strong&gt;EXPOSE&lt;/strong&gt; the image’s port 3000 so that Docker can map to our port 80 defined earlier during our Circle CI &lt;strong&gt;docker build&lt;/strong&gt; command.&lt;/p&gt;
+&lt;p&gt;Finally &lt;strong&gt;CMD&lt;/strong&gt;.&lt;span style=&quot;color:red&quot;&gt;This is important&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Essentialy what this is , is an ordered list of commands that Docker will run in our container when it is created from this image.&lt;/p&gt;
+&lt;p&gt;In this instance it will run &lt;strong&gt;yarn start&lt;/strong&gt; when a container made from this image is created and started.&lt;/p&gt;
+&lt;p&gt;This runs our &lt;strong&gt;npm start&lt;/strong&gt; script defined in our package.json. Normally this script is where you would put your applications starting commands.
+Usually starting a node process with an express server or something similar.&lt;/p&gt;
+&lt;p&gt;The only thing left to do now is to setup our Circle CI environment variables to pass into this process.&lt;/p&gt;
+&lt;h2&gt;The final hurdle: Circle CI Environment variables&lt;/h2&gt;
+&lt;p&gt;Login to your Circle CI account.&lt;/p&gt;
+&lt;p&gt;Once in the dashboard head over to Settings -&gt; Projects (Under Organizations) and click the little cog icon next to the project we setup in step one of this tutorial.&lt;/p&gt;
+&lt;p&gt;You should end up here:&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/32729f1689eef155e13dd088a0c02689/1bc0f/circle-ci-vars.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 52.37057220708448%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABPUlEQVQoz5WPX26CQBDG90rciIfS9AA0qUrlwVf/NFaBVEIf9AZtn3qGxpceoIYErJAQkJ1l0QUHjCZWm6a/EDIz+b6Z/cjN9VVL01RVva1pNpt3BzRN63Q6jVNQ0G7rjZZ2r+tkbJhFWcE5T9MU/0KI8kBRFOVlULUlhmkC59it1+swDFerVRiEQRBEUZRSevxQi3sppRmDDzd9n3vzT5cYhhkBg4wnSZzn+fmJ/XHXdXH7vseH5aIEysnjaBQD22xFHMeO8zwcDm3bntQ81ViWNZvNJElSFAULbB17Ypnjt9cXMhg8AM9FUWDgr8ViuVx+n+J5HmNMluXpdIqF7/s4RBlGI91eDzZiW5sBGL8ExkmSBANjcRziospM883+MqaivwAAPyaoJ91+P628f5jPqcw9NGfVw7D/r3kHCuoCtbOAc7gAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Circle CI Env Vars&quot;
+        title=&quot;&quot;
+        src=&quot;/static/32729f1689eef155e13dd088a0c02689/fb8a0/circle-ci-vars.png&quot;
+        srcset=&quot;/static/32729f1689eef155e13dd088a0c02689/1a291/circle-ci-vars.png 148w,
+/static/32729f1689eef155e13dd088a0c02689/2bc4a/circle-ci-vars.png 295w,
+/static/32729f1689eef155e13dd088a0c02689/fb8a0/circle-ci-vars.png 590w,
+/static/32729f1689eef155e13dd088a0c02689/526de/circle-ci-vars.png 885w,
+/static/32729f1689eef155e13dd088a0c02689/fa2eb/circle-ci-vars.png 1180w,
+/static/32729f1689eef155e13dd088a0c02689/08f6a/circle-ci-vars.png 1770w,
+/static/32729f1689eef155e13dd088a0c02689/1bc0f/circle-ci-vars.png 1835w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Click the &lt;strong&gt;Add Variable&lt;/strong&gt; button to create a variable for each of the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DOCKER_PASSWORD : The password you used for your DockerHub account login.&lt;/li&gt;
+&lt;li&gt;DOCKER_USER : The username you used for your DockerHub account login.&lt;/li&gt;
+&lt;li&gt;NODE_ENV : Set to “production” (without the quotes obvs.)&lt;/li&gt;
+&lt;li&gt;SSH_HOST : The IP address of our Digital Ocean droplet. See the image below to see where to get it.&lt;/li&gt;
+&lt;li&gt;SSH_USER : Set to “root” , this is the user we will SSH into our droplet with. Ubuntu root will give us admin level priviliges on our Digital Ocean droplet.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The IP address of our droplet, it will require you to login into your Digital Ocean account and look at your &lt;strong&gt;Droplets&lt;/strong&gt; screen.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/4e83ab53d4f1f5244c56df5e9632af97/67a86/DigitalOcean-ip.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 52.800435019032086%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAA8klEQVQoz6VSXUoDQQyOIBRPoAXxoZfwEK0I9QoeYo9i6Qk8gy5oVQQfij8XsK9dWGjX2d1kkomZdRWKvrj9GIYkky/fBxPoHZ1ezeaq6lxJ5EWCnRbfiYhwjAOKv1w+ZcFNLyZJkkBvME5nz0b2np37IERtEDl2q0pQIyMiEUkDe7XYKrA3OLt5eI2553xd5avaVUiefI3F+wKzrCyxqoltNrN5wDghfAnA/vH57eObRRy9qefA0nqWPJeiaOTbbt1MAPqj67tom1n0n4Ddw5O0M3mnP0rvXzqTh9spdybDwRbK8Jdt+1Lbth/YSljlN/kTec5nZaDyfzQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Digital Ocean IP&quot;
+        title=&quot;&quot;
+        src=&quot;/static/4e83ab53d4f1f5244c56df5e9632af97/fb8a0/DigitalOcean-ip.png&quot;
+        srcset=&quot;/static/4e83ab53d4f1f5244c56df5e9632af97/1a291/DigitalOcean-ip.png 148w,
+/static/4e83ab53d4f1f5244c56df5e9632af97/2bc4a/DigitalOcean-ip.png 295w,
+/static/4e83ab53d4f1f5244c56df5e9632af97/fb8a0/DigitalOcean-ip.png 590w,
+/static/4e83ab53d4f1f5244c56df5e9632af97/526de/DigitalOcean-ip.png 885w,
+/static/4e83ab53d4f1f5244c56df5e9632af97/fa2eb/DigitalOcean-ip.png 1180w,
+/static/4e83ab53d4f1f5244c56df5e9632af97/08f6a/DigitalOcean-ip.png 1770w,
+/static/4e83ab53d4f1f5244c56df5e9632af97/67a86/DigitalOcean-ip.png 1839w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;And with this we are finally finished with our journey.&lt;/p&gt;
+&lt;p&gt;You now have a pipeline setup that can pull your latest code changes, build it, test it, deploy it, and run it on a droplet.&lt;/p&gt;
+&lt;p&gt;I hope this tutorial has been helpful. Watch out for the final part &lt;strong&gt;Lights, Camera, Hello World!&lt;/strong&gt; where I will create and deploy a simple example project to demonstrate a working sample.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Simple CI pipeline - Part 1 - Setup]]></title><description><![CDATA[Introduction One of the best ways to get a project up and running ,and making it easy to have the project be live and testable as soon as…]]></description><link>https://oldtimerza.github.io/ci-pipeline-1/</link><guid isPermaLink="false">https://oldtimerza.github.io/ci-pipeline-1/</guid><pubDate>Sat, 19 Jan 2019 22:40:32 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;One of the best ways to get a project up and running ,and making it easy to have the project be live and testable as soon as possible,
 is to start development with a &lt;strong&gt;Continuous Integration(CI)&lt;/strong&gt; pipeline.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Continuous Integration&lt;/strong&gt;,from here on referred to as &lt;strong&gt;CI&lt;/strong&gt;, is the process of having an automated process compile, test and deploy the project whenever a code change is detected in the
