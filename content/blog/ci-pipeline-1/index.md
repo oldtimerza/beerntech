@@ -39,7 +39,16 @@ For the purpose of this tutorial I'll be using the following repository I have f
 ![Github repo](./github-repo.png)
 
 Creating a Github account, if you don't have one, and creating a repo should be pretty easy to setup.
-We'll skip this setup stage.
+
+If you have a repo with the following contents then you can skip this setup stage:
+
+- .circleci/config.yml
+- Dockerfile
+- package.json, with a "test" script defined.
+
+If you don't then you can fork and clone this repository which contains the basic structure and empty files needed.
+
+[simple-ci-pipeline](https://github.com/oldtimerza/simple-ci-pipeline)
 
 ### Connect Circle CI to our repo
 
