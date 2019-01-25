@@ -3,9 +3,11 @@ import { StaticQuery, graphql } from 'gatsby'
 import Image from 'gatsby-image'
 
 import { rhythm } from '../utils/typography'
+import Avatar from './Avatar'
 
 const Bio = props => {
   const { author } = props
+  const description = author.id + '. ' + author.bio
   return (
     <div
       style={{
@@ -13,22 +15,10 @@ const Bio = props => {
         marginBottom: rhythm(2.5),
       }}
     >
-      <Image
-        fixed={author.avatar.childImageSharp.fixed}
-        alt={author.id}
-        style={{
-          marginRight: rhythm(1 / 2),
-          marginBottom: 0,
-          minWidth: 50,
-          borderRadius: `100%`,
-        }}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
-      />
+      <Avatar avatar={author.avatar} description={description} />
       <p>
-        Written by <strong>{author.id}</strong>. {author.bio}
-        {` `}
+        Written by <strong>{author.id}</strong>.{` `}
+        {author.bio}
       </p>
     </div>
   )
